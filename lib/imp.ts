@@ -45,6 +45,6 @@ export function empty(type:string)
 }
 
 export const jeu= [
-    {name:"Twiligth Imperium 5",pict:"/ti5.jpg",logo:"/ti/Color/General Icons/Relic.png"},
-    {name:"test"}
+    {name:"Twiligth Imperium 5",pict:"/ti5.jpg",logo:"/ti/Color/General Icons/Relic.png",slug:"ti5"},
+    {name:"test",slug:"test"}
 ]

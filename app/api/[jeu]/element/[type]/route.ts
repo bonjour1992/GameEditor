@@ -3,9 +3,9 @@ import { createNewElement, getListElement } from "@/app/api/Controller/element"
 
 // voir liste element type
 //TODO: filtrer par type
-export async function GET() {
-
-  return Response.json({ element:await getListElement() });
+export async function GET(request: any, params: any) {
+let {jeu,type} = await params.params
+  return Response.json({ element:await getListElement(jeu,type) });
 }
 
 //creer element

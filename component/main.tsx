@@ -17,16 +17,20 @@ return (
 )
 }
 
+export function SideBar(props:any){
+
+    return (
+        <div className="w-80 h-screen bg-gray-200 sticky top-0 p-4 print:hidden"> 
+{props.children}
+        </div>
+    )
+}
 
 export  function Main(props: {
     titre: string,
     children: React.ReactNode
 }): ReactNode {
     return (
-
-
-
-
         <main className="flex min-h-screen w-full flex-col bg-white dark:bg-black sm:items-start">
             <title>{props.titre}</title>
             <h1 className="print:hidden">{props.titre}</h1>
