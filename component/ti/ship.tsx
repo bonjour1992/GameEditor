@@ -1,10 +1,15 @@
 "use client"
 
 
-import {  TextInput, NumberInput, EditorInput, EnumInput, TagInput } from '@/component/inputUtils'
+import {  replaceDiese } from '@/component/inputUtils'
+import { NumberInput } from "../input/NumberInput";
+import { TagInput } from "../input/TagInput";
+import { EnumInput } from "../input/EnumInput";
+import { TextInput } from "../input/TextInput";
 import { ElementContent } from "@/lib/datatype";
 import { buttonCSS } from '../classCSS';
 import { componentCSS, componentName } from './ticss';
+import { EditorInput } from '../input/EditorInput';
 
 
 
@@ -69,7 +74,7 @@ class Ship extends ElementContent{
             <div className="pl-1 text-sm w-full border-b-2">{data.mot_cle?.map((e, k, { length }) => {
                 return (<span key={e} className={"" + (tagColor[e] === undefined ? "" : (tagColor[e]))}>{tag[e] + (k === length - 1 ? "" : ", ")}</span>)
             })}</div>
-             <div className="h-24 text-sm pl-1"><span dangerouslySetInnerHTML={{ __html: data.habilite }}></span></div>
+             <div className="h-24 text-sm pl-1"><span dangerouslySetInnerHTML={{ __html: replaceDiese(data.habilite) }}></span></div>
              {data.cout&&(<div className="border-2 rounded-tr-xl rounded-bl-xl absolute -bottom-0.5 -left-1 h-12 w-16 text-center"><span className="text-tiny align-top ">Coût</span><br /><span className="text-3xl leading-0">{data.cout}</span></div>)}
              {data.move&&(<div className="border-2 rounded-t-xl absolute -bottom-0.5 left-15 h-12 w-16 text-center"><span className="text-tiny align-top ">Mouvement</span><br /><span className="text-3xl leading-0">{data.move}</span></div>)}
              {data.combat&&(<div className="border-2 rounded-t-xl absolute -bottom-0.5 left-31 h-12 w-16 text-center"><span className="text-tiny align-top ">Attaque</span><br /><span className="text-3xl leading-0">{data.combat}{"*".repeat(data.combat_touche)}</span></div>)}

@@ -11,20 +11,20 @@ export async function fetchAPI(url: string, method: string, body?: any): Promise
 }
 
 export async function getListElement(jeu: string, type: string) {
-  let res = await fetchAPI(jeu+ "/element/"+type, "GET")
+  let res = await fetchAPI(jeu+ "/"+type, "GET")
   return res
 }
 
 export async function getElement(jeu: string, type: string, id: Number): Promise<any> {
-  return await fetchAPI(jeu+ "/element/" + type + "/" + id, 'GET')
+  return await fetchAPI(jeu+ "/" + type + "/" + id, 'GET')
 }
 
 export async function updateElement(jeu: string, type: string, id: Number, content: any): Promise<any> {
-  return await fetchAPI(jeu+ "/element/" + type + "/" + id, 'POST', content)
+  return await fetchAPI(jeu+ "/" + type + "/" + id, 'POST', content)
 }
 
 export async function createElement(jeu: string, type: string, content: any): Promise<any> {
-  return await fetchAPI(jeu+ "/element/" + type, 'POST', content)
+  return await fetchAPI(jeu+ "/" + type, 'POST', content)
 }
 
 export async function getImageTree()

@@ -14,7 +14,7 @@ export async function getElement(id: Number) {
 export async function getListElement(jeu: string, type: string) {
     const client = await clientPromise;
     const db = client.db("mydatabase");
-    let element = await db.collection("element").aggregate([{"$match":{"meta.type":{"$eq":type}}},{ "$sort": { "meta.created": 1 } }, { $group: { _id: "$id", "doc": { "$last": "$$ROOT" } } }]).toArray();
+    let element = await db.collection("element").aggregate([{ "$match": { "meta.type": { "$eq": type } } }, { "$sort": { "meta.created": 1 } }, { $group: { _id: "$id", "doc": { "$last": "$$ROOT" } } }]).toArray();
     element = element.map((e: { doc: any; }) => e.doc)
 
     return element
@@ -26,11 +26,25 @@ export async function createNewElement(content: any, jeu: string, type: string) 
     let id = await nextId(db, "element")
     return await createElement(content, jeu, type, id)
 }
+
+function purgeLien(content: any) {
+    if (content?.__link) {
+        delete content.content
+    }
+    else if (typeof content.map === "function") {
+        content.map((e: any) => purgeLien(e))
+    }
+    else if (typeof content === "object") {
+        Object.entries(content).map(e => purgeLien(e[1]))
+    }
+}
+
 export async function createElement(content: any, jeu: string, type: string, id: number) {
 
     //chech auth
     const client = await clientPromise;
     const u = await checkLogin("GRANT")
+    purgeLien(content)
 
     if (!checkGrant(u, Access.Write)) {
         return Response.json({ message: "non authorisé niveau WRITE requis" });

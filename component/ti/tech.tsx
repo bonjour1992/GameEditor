@@ -1,20 +1,23 @@
 import { ElementContent, ElementJeu, Link } from "@/lib/datatype";
-import { EditorInput, EnumInput, ImagePicker, ModalPickerInput, NumberInput, TextInput } from "../inputUtils";
+import { NumberInput } from "../input/NumberInput";
+import { EnumInput } from "../input/EnumInput";
+import { TextInput } from "../input/TextInput";
 import { buttonCSS } from "../classCSS";
 import { imp, SpecificDisplayer } from "@/lib/imp";
 import Image from "next/image";
 import { turnNumber } from "./ti";
 import { componentCSS, componentName } from "./ticss";
+import { EditorInput } from "../input/EditorInput";
 
-const techType = {gen:"Génétique", spa:"Spatial", mil:"Militaire",soc: "Social"}
+const techType = { gen: "Génétique", spa: "Spatial", mil: "Militaire", soc: "Social" }
 
-const techCSS= new Map([
+const techCSS = new Map([
 
-["gen" ," border-green-800 bg-green-400"],
-["spa" ," border-blue-800 bg-blue-400"],
-["mil" ," border-red-800 bg-red-400"],
-["soc" ," border-yellow-800 bg-yellow-400"],
-["vide"," border-gray-500 bg-gray-200"]
+    ["gen", " border-green-800 bg-green-400"],
+    ["spa", " border-blue-800 bg-blue-400"],
+    ["mil", " border-red-800 bg-red-400"],
+    ["soc", " border-yellow-800 bg-yellow-400"],
+    ["vide", " border-gray-500 bg-gray-200"]
 ])
 
 class Tech extends ElementContent {
@@ -30,19 +33,19 @@ function Display({ data, dep }: { data: Tech, dep: Map<string, Array<ElementJeu>
 
     return (<div className={componentCSS}>
         <div className={componentName}>
-            {Array.from(Array(data.tier -1).keys()).map(e=>{
-                return (<div key={e} className={"my-1 mx-1 float-left size-5 border-4 rounded-md"+techCSS.get(data.techType)}></div>)
+            {Array.from(Array(data.tier - 1).keys()).map(e => {
+                return (<div key={e} className={"my-1 mx-1 float-left size-5 border-4 rounded-md" + techCSS.get(data.techType)}></div>)
             })}
-             <span className="ml-1"> {data?.name}</span> </div>
+            <span className="ml-1"> {data?.name}</span> </div>
         <div className="h-33.5 text-sm pl-1"> <span dangerouslySetInnerHTML={{ __html: data.effet }}></span></div>
-<div className="grid grid-cols-16">
-    <div className={"size-5 border-4 rounded-bl-lg"+techCSS.get(data.techType)}></div>
-{Array.from(Array(14).keys()).map(e=>{
-                return (<div className={"size-5 border-4"+techCSS.get(e+1<data.cout?data.techType:"vide")}></div>)
+        <div className="grid grid-cols-16">
+            <div className={"size-5 border-4 rounded-bl-lg" + techCSS.get(data.techType)}></div>
+            {Array.from(Array(14).keys()).map((e,i) => {
+                return (<div key={i} className={"size-5 border-4" + techCSS.get(e + 1 < data.cout ? data.techType : "vide")}></div>)
             })}
-            <div className={"size-5 border-4 rounded-br-lg"+techCSS.get(data.cout===16?data.techType:"vide")}></div>
-            </div>
-            
+            <div className={"size-5 border-4 rounded-br-lg" + techCSS.get(data.cout === 16 ? data.techType : "vide")}></div>
+        </div>
+
     </div>)
 }
 

@@ -1,10 +1,13 @@
 import { ElementContent, ElementJeu, Link } from "@/lib/datatype";
-import { EditorInput, EnumInput, ImagePicker, ModalPickerInput, NumberInput, TextInput } from "../inputUtils";
+import { NumberInput } from "../input/NumberInput";
+import { EnumInput } from "../input/EnumInput";
+import { TextInput } from "../input/TextInput";
 import { buttonCSS } from "../classCSS";
 import { imp, SpecificDisplayer } from "@/lib/imp";
 import Image from "next/image";
 import { turnNumber } from "./ti";
 import { componentCSS, componentName } from "./ticss";
+import { EditorInput } from "../input/EditorInput";
 
 
 class Habilite extends ElementContent {
