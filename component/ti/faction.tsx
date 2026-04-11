@@ -23,10 +23,10 @@ function Display({ data, dep }: { data: Faction, dep: Map<string, Array<ElementJ
                 return (<div key={e} className="border-x-6 border-b-12  h-20 border-gray-400 text-center text-gray-400"> <span className="text-7xl">{e}</span></div>)
             })}
         </div>
-        <h1 className="text-5xl m-8"><Image src={data.logo} loading="eager" alt="Logo manquant" width="80" height="80" className="inline" />   <b>{data.name}</b></h1>
+        <h1 className="text-5xl m-8"><Image src={data?.logo||"/404.jpeg"} loading="eager" alt="Logo manquant" width="80" height="80" className="inline" />   <b>{data?.name}</b></h1>
         <div className="grid grid-cols-4 w-360 h-160 gap-4 overflow auto">
             {Array.from((new Faction).ships.keys()).map((i) => {
-                return (<div key={i} className=" w-88 h-56">{data.ships[i].id!==-1 && <SpecificDisplayerFromDep link={data.ships[i]} dep={dep}/>}</div>)
+                return (<div key={i} className=" w-88 h-56">{data?.ships && data?.ships[i].id!==-1 && <SpecificDisplayerFromDep link={data.ships[i]} dep={dep}/>}</div>)
             })}
         </div>
     </div>)
@@ -53,4 +53,4 @@ function Form({ content, onChange, onSubmit, id, dep }: { content: any, onChange
 }
 
 
-export default { classe: Faction, form: Form, display: Display, dep: Array<string>("ship","tech") }
+export default { name: "Faction",classe: Faction, form: Form, display: Display, dep: Array<string>("ship","tech") }
