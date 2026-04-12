@@ -8,7 +8,7 @@ import { EnumInput } from "../input/EnumInput";
 import { TextInput } from "../input/TextInput";
 import { ElementContent } from "@/lib/datatype";
 import { buttonCSS } from '../classCSS';
-import { componentCSS, componentName } from './ticss';
+import { componentBorderColor, componentCSS, componentName, componentText } from './ticss';
 import { EditorInput } from '../input/EditorInput';
 
 
@@ -68,18 +68,21 @@ class Ship extends ElementContent{
 //TODO: bug affichage sur 4 + touche
  function Display({data}:{data: Ship}) {
 
+    const CSS_numb="text-xl align-top leading-0 absolute bottom-2.5 w-14 text-center font-extrabold"
+ const div_numb="border-2 h-8 w-14 text-center absolute "+componentBorderColor
+
     return data!==undefined?(
         <div className={componentCSS}>
             <div className={componentName}>{data?.name}</div>
-            <div className="pl-1 text-sm w-full border-b-2">{data.mot_cle?.map((e, k, { length }) => {
+            <div className={"pl-1 text-xs leading-none w-full border-b-2 font-bold"+componentBorderColor}>{data.mot_cle?.map((e, k, { length }) => {
                 return (<span key={e} className={"" + (tagColor[e] === undefined ? "" : (tagColor[e]))}>{tag[e] + (k === length - 1 ? "" : ", ")}</span>)
             })}</div>
-             <div className="h-24 text-sm pl-1"><span dangerouslySetInnerHTML={{ __html: replaceDiese(data.habilite) }}></span></div>
-             {data.cout&&(<div className="border-2 rounded-tr-xl rounded-bl-xl absolute -bottom-0.5 -left-1 h-12 w-16 text-center"><span className="text-tiny align-top ">Coût</span><br /><span className="text-3xl leading-0">{data.cout}</span></div>)}
-             {data.move&&(<div className="border-2 rounded-t-xl absolute -bottom-0.5 left-15 h-12 w-16 text-center"><span className="text-tiny align-top ">Mouvement</span><br /><span className="text-3xl leading-0">{data.move}</span></div>)}
-             {data.combat&&(<div className="border-2 rounded-t-xl absolute -bottom-0.5 left-31 h-12 w-16 text-center"><span className="text-tiny align-top ">Attaque</span><br /><span className="text-3xl leading-0">{data.combat}{"*".repeat(data.combat_touche)}</span></div>)}
-            {data.capacite&&(<div className="border-2 rounded-t-xl absolute -bottom-0.5 left-47 h-12 w-16 text-center"><span className="text-tiny align-top ">Capacité</span><br /><span className="text-3xl leading-0">{data.capacite}</span></div>)}
-             {data.PV&&(<div className="border-2 rounded-tl-xl rounded-br-xl absolute -bottom-0.5 left-63 h-12 w-16 text-center"><span className="text-tiny align-top ">Résistance</span><br /><span className="text-3xl leading-0">{data.PV}</span></div>)}
+             <div className={"h-24 "+componentText}><span dangerouslySetInnerHTML={{ __html: replaceDiese(data.habilite) }}></span></div>
+             {data.cout&&(<div className={"rounded-tr-lg rounded-bl-lg  bottom-0 left-0 "+div_numb}><span className="text-tiny align-top ">Coût</span><div className={CSS_numb}>{data.cout}</div></div>)}
+             {data.move&&(<div className={"rounded-t-lg  bottom-0 left-14 "+div_numb}><span className="text-tiny align-top ">Mouvement</span><div className={CSS_numb}>{data.move}</div></div>)}
+             {data.combat&&(<div className={"rounded-t-lg  bottom-0 left-28 "+div_numb}><span className="text-tiny align-top ">Attaque</span><div className={CSS_numb}>{data.combat}{"*".repeat(data.combat_touche)}</div></div>)}
+            {data.capacite&&(<div className={"rounded-t-lg  bottom-0 left-42 "+div_numb}><span className="text-tiny align-top ">Capacité</span><div className={CSS_numb}>{data.capacite}</div></div>)}
+             {data.PV&&(<div className={"rounded-tl-lg rounded-br-lg  bottom-0 left-56 "+div_numb}><span className="text-tiny align-top ">Résistance</span><div className={CSS_numb}>{data.PV}</div></div>)}
         </div>
     ):(<></>)
 }
@@ -113,7 +116,7 @@ class Ship extends ElementContent{
     )
 }
 
-export default {classe:Ship,form:Form,display:Display,dep:Array<string>()}
+export default {name:"Vaisseau",classe:Ship,form:Form,display:Display,dep:Array<string>()}
 
 
 

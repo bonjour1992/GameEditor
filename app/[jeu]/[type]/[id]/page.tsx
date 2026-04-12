@@ -4,8 +4,10 @@
 
 import { useParams } from "next/navigation";
 import { useEffect, useState } from "react";
-import { createElement, getElement, getListElement } from "@/lib/fetchAPI"
-import { NavHead, Main, SideBar } from "@/component/main";
+import { createElement, deleteElement, getElement, getListElement } from "@/lib/fetchAPI"
+import { Main } from "@/component/main";
+import { NavHead } from "@/component/NavHead";
+import { SideBar } from "@/component/SideBar";
 
 import { ElementJeu } from "@/lib/datatype";
 import { empty, imp, SpecificDisplayer } from "@/lib/imp"
@@ -39,6 +41,14 @@ export default function DisplayElement() {
         e.preventDefault()
     }
 
+    function supprimer(e: any) {
+        let f = async () => {
+            let res = await deleteElement(jeu, type,parseInt(id))
+            window.location.assign("/" + jeu + "/" + type + "/" + res.id + "/edit")
+        }
+        f()
+        e.preventDefault()
+    }
 
 
     return (
@@ -50,8 +60,9 @@ export default function DisplayElement() {
 
                 </Main>
                 <SideBar >
+                    {/*TODO: handle delete and version*/}
                     <button disabled={false} onClick={b => window.location.assign("./" + id + "/edit")} className={buttonCSS}>Editer</button>
-                    <button disabled={true} className={buttonCSS}>Delete</button>
+                    <button disabled={false} onClick={supprimer} className={buttonCSS}>Delete</button>
                     <button disabled={false} onClick={dupliquer} className={buttonCSS}>Dupliquer</button>
                     <span>auteur:{element.meta?.author}</span>
                     <br />

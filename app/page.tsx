@@ -1,7 +1,9 @@
 'use client'
 import Image from "next/image";
 import { jeu } from "@/lib/imp";
-import {NavHead,Main, SideBar} from "@/component/main";
+import {Main} from "@/component/main";
+import { NavHead } from "@/component/NavHead";
+import { SideBar } from "@/component/SideBar";
 
 export default function Home() {
   return (

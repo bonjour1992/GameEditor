@@ -17,6 +17,8 @@ export function ModalPickerInput(
     
     let depe: ElementJeu[] = []
     type.map(e => { dep.get(e) && dep.get(e).map((f: ElementJeu) => depe.push(f)) })
+
+    console.log(depe)
     function close(e?: any) {
         document.getElementById("modal" + name + index)?.classList.add("hidden")
         setSelected(index !== undefined ? value[index] : value)

@@ -19,6 +19,11 @@ export async function getElement(jeu: string, type: string, id: Number): Promise
   return await fetchAPI(jeu+ "/" + type + "/" + id, 'GET')
 }
 
+export async function deleteElement(jeu: string, type: string, id: Number): Promise<any> {
+  return await fetchAPI(jeu+ "/" + type + "/" + id, 'DELETE')
+}
+
+
 export async function updateElement(jeu: string, type: string, id: Number, content: any): Promise<any> {
   return await fetchAPI(jeu+ "/" + type + "/" + id, 'POST', content)
 }
@@ -26,6 +31,8 @@ export async function updateElement(jeu: string, type: string, id: Number, conte
 export async function createElement(jeu: string, type: string, content: any): Promise<any> {
   return await fetchAPI(jeu+ "/" + type, 'POST', content)
 }
+
+
 
 export async function getImageTree()
 {

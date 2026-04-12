@@ -6,6 +6,10 @@ export const modalCSS ="fixed inset-0 bg-black/50 flex items-center justify-cent
 
 export const dialogCSS ="bg-white w-full max-w-lg rounded-lg shadow-xl p-2 focus:outline-none"
 
-function t(){
-    return(<div className="text-xl"></div>)
-}
+export const w_A3pa = " w-398 "
+
+export const h_A3pa =" h-281 "
+
+export const A3pa =w_A3pa+h_A3pa
+
+export const small= " w-71 h-45 "

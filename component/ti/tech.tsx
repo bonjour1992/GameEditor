@@ -6,7 +6,7 @@ import { buttonCSS } from "../classCSS";
 import { imp, SpecificDisplayer } from "@/lib/imp";
 import Image from "next/image";
 import { turnNumber } from "./ti";
-import { componentCSS, componentName } from "./ticss";
+import { componentCSS, componentName, componentText } from "./ticss";
 import { EditorInput } from "../input/EditorInput";
 
 const techType = { gen: "Génétique", spa: "Spatial", mil: "Militaire", soc: "Social" }
@@ -33,17 +33,17 @@ function Display({ data, dep }: { data: Tech, dep: Map<string, Array<ElementJeu>
 
     return (<div className={componentCSS}>
         <div className={componentName}>
-            {Array.from(Array(data.tier - 1).keys()).map(e => {
-                return (<div key={e} className={"my-1 mx-1 float-left size-5 border-4 rounded-md" + techCSS.get(data.techType)}></div>)
+            {Array.from(Array((data?.tier|| 1) - 1).keys()).map(e => {
+                return (<div key={e} className={" m-0.5 float-left size-4 border-4 rounded-md" + techCSS.get(data.techType)}></div>)
             })}
             <span className="ml-1"> {data?.name}</span> </div>
-        <div className="h-33.5 text-sm pl-1"> <span dangerouslySetInnerHTML={{ __html: data.effet }}></span></div>
-        <div className="grid grid-cols-16">
-            <div className={"size-5 border-4 rounded-bl-lg" + techCSS.get(data.techType)}></div>
+        <div className={"h-31.75 "+componentText}> <span dangerouslySetInnerHTML={{ __html: data?.effet }}></span></div>
+        <div className="grid grid-cols-16 w-68.5">
+            <div className={"size-5 border-4 rounded-bl-lg" + techCSS.get(data?.techType)}></div>
             {Array.from(Array(14).keys()).map((e,i) => {
-                return (<div key={i} className={"size-5 border-4" + techCSS.get(e + 1 < data.cout ? data.techType : "vide")}></div>)
+                return (<div key={i} className={"size-5 border-4 " + techCSS.get(e + 1 < data?.cout ? data?.techType : "vide")}></div>)
             })}
-            <div className={"size-5 border-4 rounded-br-lg" + techCSS.get(data.cout === 16 ? data.techType : "vide")}></div>
+            <div className={"size-5 border-4 rounded-br-lg " + techCSS.get(data?.cout == 16 ? data?.techType : "vide")}></div>
         </div>
 
     </div>)
@@ -67,4 +67,4 @@ function Form({ content, onChange, onSubmit, id, dep }: { content: any, onChange
 }
 
 
-export default { classe: Tech, form: Form, display: Display, dep: Array<string>() }
+export default {name:"Technologie", classe: Tech, form: Form, display: Display, dep: Array<string>() }

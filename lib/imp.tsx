@@ -1,10 +1,12 @@
 import { JSX } from "react";
 import { ElementContent, ElementJeu } from "./datatype";
-import { element } from "@/component/ti/ti";
+import { element as Ti5 } from "@/component/ti/ti";
 import { getDep } from "@/component/inputUtils";
 
+export const exp_Ti5=Ti5
 
 export const imp = new Map<string, {
+    name:string
     classe: typeof ElementContent
     form: ({ content, onChange, onSubmit, id }: {
         content: ElementContent;
@@ -18,12 +20,12 @@ export const imp = new Map<string, {
         dep: any
     }) => JSX.Element;
     dep: Array<string>
-}>(element)
+}>(Ti5)
 
 export function SpecificDisplayer(params: any) {
     let display = imp.get(params.type)?.display
 
-    return display && display({ data: params.content, dep: params.dep })
+    return display && display({ data: params.content|| new (imp.get(params.type)?.classe || ElementContent ), dep: params.dep })
 }
 
 export function SpecificDisplayerFromDep(params: any) {

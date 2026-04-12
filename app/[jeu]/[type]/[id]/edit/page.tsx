@@ -4,7 +4,8 @@
 import { useParams } from "next/navigation";
 import { useEffect, useState } from "react";
 import { updateElement, getElement, getListElement } from "@/lib/fetchAPI"
-import {NavHead,Main} from "@/component/main";
+import {Main} from "@/component/main";
+import { NavHead } from "@/component/NavHead";
 
 import { ElementContent, ElementJeu } from "@/lib/datatype";
 import { imp, SpecificEditor, SpecificDisplayer } from "@/lib/imp"

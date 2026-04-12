@@ -6,7 +6,7 @@ import { buttonCSS } from "../classCSS";
 import { imp, SpecificDisplayer } from "@/lib/imp";
 import Image from "next/image";
 import { turnNumber } from "./ti";
-import { componentCSS, componentName } from "./ticss";
+import { componentCSS, componentName, componentText } from "./ticss";
 import { EditorInput } from "../input/EditorInput";
 
 
@@ -22,7 +22,7 @@ function Display({ data, dep }: { data: Habilite, dep: Map<string, Array<Element
     return (<div className={componentCSS}>
         <div className={componentName}>
              <span className="ml-1"> {data?.name}</span> </div>
-        <div className="h-38 text-sm pl-1"> <span dangerouslySetInnerHTML={{ __html: data.effet }}></span></div>
+        <div className={"h-38"+componentText}> <span dangerouslySetInnerHTML={{ __html: data?.effet }}></span></div>
 
             
     </div>)
@@ -33,8 +33,8 @@ function Form({ content, onChange, onSubmit, id, dep }: { content: any, onChange
     return (
         <>
             <form onSubmit={onSubmit}>
-                <TextInput onChange={onChange} name="name" value={content.name} />
-                <EditorInput onChange={onChange} name="effet" value={content.effet} />
+                <TextInput onChange={onChange} name="name" value={content?.name} />
+                <EditorInput onChange={onChange} name="effet" value={content?.effet} />
 
                 <button className={buttonCSS} onClick={onSubmit}> Sauvegarder</button>
             </form>
@@ -43,4 +43,4 @@ function Form({ content, onChange, onSubmit, id, dep }: { content: any, onChange
 }
 
 
-export default { classe: Habilite, form: Form, display: Display, dep: Array<string>() }
+export default { name: "Habilité",classe: Habilite, form: Form, display: Display, dep: Array<string>() }

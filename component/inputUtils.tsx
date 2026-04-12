@@ -11,7 +11,18 @@ import Image from "next/image";
 import { strDiese } from "./ti/ti";
 import { ElementContent, Link } from "@/lib/datatype";
 import { imp } from "@/lib/imp";
-
+import { getImageProps } from 'next/image'
+ 
+export function getBackgroundImage(srcSet = '') {
+  const imageSet = srcSet
+    .split(', ')
+    .map((str) => {
+      const [url, dpi] = str.split(' ')
+      return `url("${url}") ${dpi}`
+    })
+    .join(', ')
+  return `image-set(${imageSet})`
+}
 
 
 export function handleInputChange(formData: {}, setFormData: Dispatch<SetStateAction<any>>) {

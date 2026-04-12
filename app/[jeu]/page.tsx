@@ -2,9 +2,10 @@
 
 
 import { useParams } from "next/navigation";
-import { NavHead, Main } from "@/component/main";
+import { Main } from "@/component/main";
+import { NavHead } from "@/component/NavHead";
+import { exp_Ti5 } from "@/lib/imp";
 
-import { element } from "@/component/ti/ti";
 
 
 
@@ -16,8 +17,8 @@ export default function Home() {
         <>
             <NavHead jeu={jeu} />
             <Main titre={jeu} >
-                {element.map((e, i) => {
-                    return <div key={i}>e[0]</div>
+                {exp_Ti5.map((e, i) => {
+                    return <a href={jeu+"/"+e[0]+"/list"} key={i}>{e[1].name}</a>
                 })}
             </Main>
         </>
