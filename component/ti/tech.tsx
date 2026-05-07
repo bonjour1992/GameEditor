@@ -5,11 +5,10 @@ import { TextInput } from "../input/TextInput";
 import { buttonCSS } from "../classCSS";
 import { imp, SpecificDisplayer } from "@/lib/imp";
 import Image from "next/image";
-import { turnNumber } from "./ti";
+import { techType, turnNumber } from "./ti";
 import { componentCSS, componentName, componentText } from "./ticss";
 import { EditorInput } from "../input/EditorInput";
 
-const techType = { gen: "Génétique", spa: "Spatial", mil: "Militaire", soc: "Social" }
 
 const techCSS = new Map([
 

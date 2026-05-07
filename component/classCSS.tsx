@@ -13,3 +13,5 @@ export const h_A3pa =" h-281 "
 export const A3pa =w_A3pa+h_A3pa
 
 export const small= " w-71 h-45 "
+
+export const smallpo= " w-45 h-71 "

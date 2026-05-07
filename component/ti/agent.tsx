@@ -8,6 +8,8 @@ import { replaceDiese } from "../inputUtils";
 
 
 
+
+//TODO: WIP
 class Classe extends ElementContent {
 
     usage: string = ""

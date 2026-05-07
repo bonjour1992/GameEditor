@@ -42,7 +42,7 @@ export function ImagePicker({ onChange = (event: { target: { name: any; value: a
 
     return (<div>
         {label && (<Label name={name} />)}
-        <Image src={value} alt={value} width="50" height="50" />
+        <Image src={value||"/404.jpeg"} alt={value} width="50" height="50" />
         <button onClick={(e) => { document.getElementById("modal" + name)?.classList.remove("hidden"); e.preventDefault() }}
             className={buttonCSS}> {selected || "Aucune image"} </button>
         <div id={"modal" + name} className={modalCSS + " hidden"}>
@@ -67,11 +67,11 @@ export function ImagePicker({ onChange = (event: { target: { name: any; value: a
                         }
                     </div>
                     <div className="absolute  left-32 top-64 size-32 ">
-                        <Image src={ selected} alt={selected} width="100" height="100" className="object-scale-down size-30 p-1" />
+                        <Image src={ selected||"/404.jpeg"} alt={selected} width="100" height="100" className="object-scale-down size-30 p-1" />
                     </div>
                     <div className="absolute  left-64 top-64 size-32 ">
                         {selected}
-                        <button className={buttonCSS} onClick={(e)=>{onChange({ target: { name: name, value: selected }}) ; e.preventDefault()}}>Valider</button>
+                        <button className={buttonCSS} onClick={(e)=>{onChange({ target: { name: name, value: selected }}) ; document.getElementById("modal" + name)?.classList.add("hidden");e.preventDefault()}}>Valider</button>
                     </div>
                 </div>
 
