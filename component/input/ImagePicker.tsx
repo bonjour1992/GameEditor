@@ -5,11 +5,22 @@ import { Label } from "../inputUtils";
 import Image from "next/image";
 
 
-export function ImagePicker({ onChange = (event: { target: { name: any; value: any; } }) => { }, name = "name", value, label = true }: { onChange: any, name: string, label?: boolean, value: any | undefined }): ReactNode {
+export function ImagePicker({ index, className, onChange, name, value, label }:
+    {
+        index?: number,
+        className?: string,
+        onChange: (name: string, value: string, index?: number) => {},
+        name: string,
+        label?: string,
+        value: any
+    }): ReactNode {
+    const val= index !== undefined ? value[name][index] : value[name]
+
     let folder: any[]
     let [image, setImage] = useState({ name: "loading", children: [] })
-    let [selected, setSelected] = useState(value || "")
+    let [selected, setSelected] = useState(val || "")
     let [selectedFolder, setSelectedFolder] = useState<number[]>([])
+    
     useEffect(() => {
         let f = async () => {
             let res = await getImageTree()
@@ -20,7 +31,7 @@ export function ImagePicker({ onChange = (event: { target: { name: any; value: a
 
     function close(e?: any) {
         document.getElementById("modal" + name)?.classList.add("hidden")
-        setSelected(value || "")
+        setSelected(val || "")
         e && e.preventDefault()
     }
 
@@ -41,8 +52,8 @@ export function ImagePicker({ onChange = (event: { target: { name: any; value: a
     selectedFolder.map((e) => folder = folder[e].children)
 
     return (<div>
-        {label && (<Label name={name} />)}
-        <Image src={value||"/404.jpeg"} alt={value} width="50" height="50" />
+        {label && (<Label name={label} />)}
+        <Image src={val || "/404.jpeg"} alt={val} width="50" height="50" />
         <button onClick={(e) => { document.getElementById("modal" + name)?.classList.remove("hidden"); e.preventDefault() }}
             className={buttonCSS}> {selected || "Aucune image"} </button>
         <div id={"modal" + name} className={modalCSS + " hidden"}>
@@ -61,17 +72,15 @@ export function ImagePicker({ onChange = (event: { target: { name: any; value: a
                     </div>
                     <div className="absolute inset-x-32 top-0 h-64 flex flex-wrap w-96 overflow-y-auto">
                         {
-
-                            folder ? folder.filter((e) => e.type === "file").map((e, i) => (<div key={i} onClick={() => { setSelected("/"+e.relativePath) }} className="clear-both w-48 px-1 truncate overflow-hidden"><Image src={"/" + e.relativePath} alt={value} width="20" height="20" className="float-left" />{e.name}</div>)) : ""
-
+                            folder ? folder.filter((e) => e.type === "file").map((e, i) => (<div key={i} onClick={() => { setSelected("/" + e.relativePath) }} className="clear-both w-48 px-1 truncate overflow-hidden"><Image src={"/" + e.relativePath} alt={val} width="20" height="20" className="float-left" />{e.name}</div>)) : ""
                         }
                     </div>
                     <div className="absolute  left-32 top-64 size-32 ">
-                        <Image src={ selected||"/404.jpeg"} alt={selected} width="100" height="100" className="object-scale-down size-30 p-1" />
+                        <Image src={selected || "/404.jpeg"} alt={selected|| "/404.jpeg"} width="100" height="100" className="object-scale-down size-30 p-1" />
                     </div>
                     <div className="absolute  left-64 top-64 size-32 ">
                         {selected}
-                        <button className={buttonCSS} onClick={(e)=>{onChange({ target: { name: name, value: selected }}) ; document.getElementById("modal" + name)?.classList.add("hidden");e.preventDefault()}}>Valider</button>
+                        <button className={buttonCSS} onClick={(e) => { onChange( name, selected,index ); document.getElementById("modal" + name)?.classList.add("hidden"); e.preventDefault() }}>Valider</button>
                     </div>
                 </div>
 

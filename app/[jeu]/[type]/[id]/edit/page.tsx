@@ -38,17 +38,17 @@ export default function EditorElement() {
   useEffect(loadDep(jeu,type,dep,setDep), [])
 
 
-  function handleInputChange(event: { target: { name: string; index?: number; value: any; }; }) {
+  function handleInputChange( name: string,  value: any,index?: number ) {
 
-    if (event.target.index!== undefined) {
+    if (index!== undefined) {
 
-      let table = (element as any)[event.target.name]
-      table[event.target.index] = event.target.value
-      setElement({ ...element, [event.target.name]: table });
+      let table = (element as any)[name]
+      table[index] = value
+      setElement({ ...element, [name]: table });
 
     }
     else {
-      setElement({ ...element, [event.target.name]: event.target.value });
+      setElement({ ...element, [name]: value });
     }
 
 

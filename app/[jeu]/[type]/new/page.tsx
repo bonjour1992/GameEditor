@@ -29,17 +29,17 @@ export default function EditorElement() {
 
 
 
-  function handleInputChange(event: { target: { name: string; index?: number; value: any; }; }) {
+  function handleInputChange( name: string, value: any,index?: number) {
  
-    if (event.target.index!== undefined) {
+    if (index!== undefined) {
 
-      let table = (element as any)[event.target.name]
-      table[event.target.index] = event.target.value
-      setElement({ ...element, [event.target.name]: table });
+      let table = (element as any)[name]
+      table[index] = value
+      setElement({ ...element, [name]: table });
 
     }
     else {
-      setElement({ ...element, [event.target.name]: event.target.value });
+      setElement({ ...element, [name]: value });
     }
 
 
@@ -62,6 +62,7 @@ export default function EditorElement() {
       <Main titre={"Editer nouveau " + type} >
         <SpecificEditor content={element} type={type} onChange={handleInputChange} onSubmit={save} dep={dep} />
         <SpecificDisplayer content={element} type={type} dep={dep}/>
+        <div>{JSON.stringify(element)}</div>
       </Main>
     </>
   );

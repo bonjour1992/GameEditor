@@ -4,7 +4,16 @@ import StarterKit from "@tiptap/starter-kit";
 import { ReactNode, useEffect } from "react";
 import { Label } from "../inputUtils";
 
-export function EditorInput({ onChange = (event: { target: { name: any; value: any; } }) => { }, name = "name", value, label = true }: { onChange: any, name: string, label?: boolean, value: string }): ReactNode {
+export function EditorInput({className,index, onChange , name = "name", value, label = true }:
+    {
+        className?:string
+        index?:number
+        onChange:  ( name: string, value: string,index?:number) => { },
+        name: string,
+        label?: boolean,
+        value: any
+    }): ReactNode {
+const val= index !== undefined ? value[name][index] : value[name]
     const extensions = [StarterKit]
     const editor = useEditor({
         extensions: extensions,
@@ -13,14 +22,14 @@ export function EditorInput({ onChange = (event: { target: { name: any; value: a
                 class: " bg-gray-100 prose prose-sm m-1 focus:outline-none",
             },
         },
-        content: value || "loading",
+        content: val || "loading",
         // Don't render immediately on the server to avoid SSR issues
         immediatelyRender: false,
-        onUpdate: () => onChange({ target: { name: name, value: generateHTML(editor.getJSON(), extensions) } }),
+        onUpdate: () => onChange(name,  generateHTML(editor.getJSON(), extensions),index ),
     }) as Editor
 
     //pas compris mais nécessaire pour initialiser l'éditeur
-    useEffect(() => { if (editor && value != generateHTML(editor?.getJSON(), extensions)) editor?.commands.setContent(value) }, [value, editor])
+    useEffect(() => { if (editor && val != generateHTML(editor?.getJSON(), extensions)) editor?.commands.setContent(val) }, [val, editor])
 
     function ButtonClass(active?: boolean): string {
         let res: string

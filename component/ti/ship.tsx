@@ -94,20 +94,20 @@ class Ship extends ElementContent{
         <div className="flex">
 
             <form onSubmit={onSubmit}>
-                <TextInput onChange={onChange} name="name" value={content.name} />
-                <EnumInput onChange={onChange} name="type" value={content.type} enumClass={shipClasse} />
+                <TextInput onChange={onChange} name="name" value={content} />
+                <EnumInput onChange={onChange} name="type" value={content} enumClass={shipClasse} />
 
                 <br />
-                <TagInput onChange={onChange} name="mot_cle" value={content.mot_cle} tagClass={tag} />
+                <TagInput onChange={onChange} name="mot_cle" value={content} tagClass={tag} />
                 <br />
-                <EditorInput onChange={onChange} name="habilite" value={content.habilite} />
+                <EditorInput onChange={onChange} name="habilite" value={content} />
                 <br />
-                <NumberInput onChange={onChange} name="move" value={content.move} min={1} max={9} />
-                <NumberInput onChange={onChange} name="combat" value={content.combat} min={1} max={9} />
-                <NumberInput onChange={onChange} name="combat_touche" value={content.combat_touche} min={1} max={9} />
-                <NumberInput onChange={onChange} name="cout" value={content.cout} min={1} max={99} />
-                <NumberInput onChange={onChange} name="capacite" value={content.capacite} min={1} max={99} />
-                <NumberInput onChange={onChange} name="PV" value={content.PV} min={1} max={9} />
+                <NumberInput onChange={onChange} name="move" value={content} min={1} max={9} />
+                <NumberInput onChange={onChange} name="combat" value={content} min={1} max={9} />
+                <NumberInput onChange={onChange} name="combat_touche" value={content} min={1} max={9} />
+                <NumberInput onChange={onChange} name="cout" value={content} min={1} max={99} />
+                <NumberInput onChange={onChange} name="capacite" value={content} min={1} max={99} />
+                <NumberInput onChange={onChange} name="PV" value={content} min={1} max={9} />
                 <br />
                 <button className={buttonCSS} type="submit">Submit</button>
             </form>

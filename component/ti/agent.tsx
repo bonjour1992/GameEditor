@@ -13,19 +13,20 @@ import { replaceDiese } from "../inputUtils";
 class Classe extends ElementContent {
 
     usage: string = ""
-    color: string = "#fff"
+    color: string = "#000000"
 }
 
 function Display({ data, dep }: { data: Classe, dep: Map<string, Array<ElementJeu>> }) {
 
 
-    return (<div className={"border-4 rounded-xl relative z-5 text-amber-50 h-30 w-50"}>
-            <div className={componentName}>
-                 <span className="ml-1"> {data?.name}</span> </div>
-        <div className={"h-38"+componentText}> <span dangerouslySetInnerHTML={{ __html:replaceDiese( data?.usage) }}></span></div>
+    return (
+        <div className={"border-4 rounded-xl relative z-5  h-30 w-50"} style={{ color: data.color, borderColor: data.color }}>
+            <div className={"border-b-4  py-0.5 w-full pl-2 text-lg font-bold leading-none"}>
+                <span className="ml-1"> {data?.name}</span> </div>
+            <div className={"h-20 text-[8px] leading-none pl-1"}> <span dangerouslySetInnerHTML={{ __html: replaceDiese(data?.usage) }}></span></div>
 
 
-    </div>)
+        </div>)
 }
 
 function Form({ content, onChange, onSubmit, id, dep }: { content: any, onChange: any, onSubmit: any, id?: number, dep: Map<string, Array<ElementJeu>> }) {
@@ -33,9 +34,9 @@ function Form({ content, onChange, onSubmit, id, dep }: { content: any, onChange
     return (
         <>
             <form onSubmit={onSubmit}>
-                <TextInput onChange={onChange} name="name" value={content?.name} />
-                <EditorInput onChange={onChange} name="usage" value={content?.usage} />
-                <ColorInput onChange={onChange} name={"color"} value={content.color} />
+                <TextInput onChange={onChange} name="name" value={content} />
+                <EditorInput onChange={onChange} name="usage" value={content} />
+                <ColorInput onChange={onChange} name="color" value={content} />
 
                 <button className={buttonCSS} onClick={onSubmit}> Sauvegarder</button>
             </form>

@@ -48,7 +48,8 @@ export function replaceDiese(content:string)
 
 export function getDep(dep:any,link:Link)
 {
-    let depe = dep.get(link.type) || [{ content: new (imp.get(link.type)?.classe || ElementContent), id: -1 }]
+    if (link===undefined) return undefined
+    let depe = dep.get(link?.type || new Link) || [{ content: new (imp.get(link?.type)?.classe || ElementContent), id: -1 }]
     let res = depe.filter((e: { id: number; })=>e.id===link.id) || [{ content: new (imp.get(link.type)?.classe || ElementContent), id: -1 }]
     if (res.length < 1 ) res=[{ content: new (imp.get(link.type)?.classe || ElementContent), id: -1 }]
     
@@ -58,7 +59,7 @@ export function getDep(dep:any,link:Link)
 
 export function Label({ name = "Label missing" }: { name: string }): ReactNode {
 
-    return (<label htmlFor={name}>{name}</label>)
+    return (<label htmlFor={name}>{name}: </label>)
 
 }
 
