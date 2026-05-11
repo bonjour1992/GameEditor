@@ -1,0 +1,20 @@
+- Ravitaillement
+- Recrutement
+- Deplacement
+- science
+- diplomatie
+- Canon spatial
+- Combat spatial
+- bombardement
+- debarquement
+- combat terrestre
+- retraite
+- Production
+- Revendication
+- phase de mandat
+- phase de prevote
+- phase de vote
+- phase de proposition
+- phase de déclaration de trêve
+- phase d'évenement
+- spécial tour 10 phase de décompte
