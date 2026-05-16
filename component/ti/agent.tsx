@@ -16,14 +16,14 @@ class Classe extends ElementContent {
     color: string = "#000000"
 }
 
-function Display({ data, dep }: { data: Classe, dep: Map<string, Array<ElementJeu>> }) {
+function Display({ data, dep,className}: { data: Classe, dep: Map<string, Array<ElementJeu>> ,className?: string}) {
 
 
     return (
-        <div className={"border-4 rounded-xl relative z-5  h-30 w-50"} style={{ color: data.color, borderColor: data.color }}>
+        <div className={"border-4 rounded-xl relative z-5  min-h-21 maw-h-44 w-38  bg-indigo-950/60 "+className} style={{ color: data.color, borderColor: data.color }}>
             <div className={"border-b-4  py-0.5 w-full pl-2 text-lg font-bold leading-none"}>
                 <span className="ml-1"> {data?.name}</span> </div>
-            <div className={"h-20 text-[8px] leading-none pl-1"}> <span dangerouslySetInnerHTML={{ __html: replaceDiese(data?.usage) }}></span></div>
+            <div className={" text-[9px] leading-none pl-1"}> <span dangerouslySetInnerHTML={{ __html: replaceDiese(data?.usage) }}></span></div>
 
 
         </div>)

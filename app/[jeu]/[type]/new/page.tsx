@@ -58,7 +58,7 @@ export default function EditorElement() {
 
   return (
     <>
-      <NavHead jeu={jeu} />
+      <NavHead jeu={jeu}  element={type}/>
       <Main titre={"Editer nouveau " + type} >
         <SpecificEditor content={element} type={type} onChange={handleInputChange} onSubmit={save} dep={dep} />
         <SpecificDisplayer content={element} type={type} dep={dep}/>

@@ -24,20 +24,20 @@ const anomalyPict = new Map([["ast", "/ti/system/asteroide.png"],
 class Classe extends ElementContent {
     anomaly: string = ""
     elems: Array<Link> = new Array(3).fill(new Link("planet"))
-    elemsX: Array<number> = new Array(3).fill(75)
-    elemsY: Array<number> = new Array(3).fill(60)
-    elemsSize: Array<number> = new Array(3).fill(100)
+    elemsX: Array<number> = new Array(3).fill(115)
+    elemsY: Array<number> = new Array(3).fill(100)
+    elemsSize: Array<number> = new Array(3).fill(120)
 }
 
 function Display({ data, dep }: { data: Classe, dep: Map<string, Array<ElementJeu>> }) {
 
 
-    return (<div className="w-100 h-87 bg-[url(/ti/system/bgSystem.png)] bg-cover relative overflow-hidden" >
-        {data.anomaly && <Image src={anomalyPict.get(data.anomaly) || "/404.jpeg"} alt={data.anomaly} width={400} height={348} />}
-        {data.anomaly && <Image src="/ti/system/anomalie.png" alt="contient anomalie" width={400} height={348} className="absolute left-0 top-0" />}
+    return (<div className="w-98 h-85 bg-[url(/ti/system/bgSystem.png)] bg-cover relative overflow-hidden" >
+        {data.anomaly && <Image src={anomalyPict.get(data.anomaly) || "/404.jpeg"} alt={data.anomaly} width={392} height={340} />}
+        {data.anomaly && <Image src="/ti/system/anomalie.png" alt="contient anomalie" width={392} height={340} className="absolute left-0 top-0" />}
 
         {[0, 1, 2].map(e => <div key={e} className="absolute" style={{ top: data.elemsY[e] + "px", left: data.elemsX[e] + "px", transform: "scale(" + (data.elemsSize[e] / 100) + ")" }}>
-            {data.elems[e].id !== -1 && <PlanetPict data={getDep(dep, data.elems[e])?.content} />}
+            {data.elems[e].id !== -1 && <PlanetPict data={getDep(dep, data.elems[e])?.content} dep={dep}/>}
         </div>)}
 
     </div>)
@@ -49,9 +49,9 @@ function Form({ content, onChange, onSubmit, id, dep }: { content: any, onChange
         <>
             <form onSubmit={onSubmit}>
                 <TextInput onChange={onChange} name="name" value={content} />
-                <EnumInput onChange={onChange} name="anomaly" value={content.anomaly} enumClass={anomaly} aucun={true} />
+                <EnumInput onChange={onChange} name="anomaly" value={content} enumClass={anomaly} aucun={true} />
                 {[0, 1, 2].map(e => <div key={e}>
-                    <ModalPickerInput onChange={onChange} label={"Element " + (e + 1)} name={"elems"} index={e} value={content.elems} type={["planet"]} dep={dep || []} />
+                    <ModalPickerInput onChange={onChange} label={"Element " + (e + 1)} name={"elems"} index={e} value={content} type={["planet"]} dep={dep || []} />
                     <RangeInput onChange={onChange} name="elemsX" index={e} value={content} min={0} max={250} label="X" className={content.elems[e].id === -1 ? "hidden" : ""} />
                     <RangeInput onChange={onChange} name="elemsY" index={e} value={content} min={0} max={200} label="Y" className={content.elems[e].id === -1 ? "hidden" : ""} />
                     <RangeInput onChange={onChange} name="elemsSize" index={e} value={content} min={10} max={300} label="Scale" className={content.elems[e].id === -1 ? "hidden" : ""} />
@@ -65,4 +65,4 @@ function Form({ content, onChange, onSubmit, id, dep }: { content: any, onChange
 }
 
 
-export default { name: "Systéme", classe: Classe, form: Form, display: Display, dep: Array<string>("planet") }
+export default { name: "Systéme", classe: Classe, form: Form, display: Display, dep: Array<string>("planet","faction") }

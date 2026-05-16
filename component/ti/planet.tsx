@@ -1,4 +1,4 @@
-import { ElementContent, ElementJeu } from "@/lib/datatype";
+import { ElementContent, ElementJeu, Link } from "@/lib/datatype";
 import { TextInput } from "../input/TextInput";
 import { buttonCSS, smallpo } from "../classCSS";
 import { EnumInput } from "../input/EnumInput";
@@ -10,7 +10,9 @@ import { ImagePicker } from "../input/ImagePicker";
 import Image from "next/image";
 import { EditorInput } from "../input/EditorInput";
 import { componentText } from "./ticss";
-import { replaceDiese } from "../inputUtils";
+import { getDep, replaceDiese } from "../inputUtils";
+import { nameAff } from "../Utils";
+import { ModalPickerInput } from "../input/ModalPickerInput";
 
 
 const objectType = {
@@ -31,7 +33,6 @@ const planetType = {
 }
 
 class Classe extends ElementContent {
-    printName: boolean = true
     img: string = ""
     planetType: string = ""
     res?: number
@@ -41,6 +42,8 @@ class Classe extends ElementContent {
     legendary: boolean = false
     ruine: boolean = false
     ruineType: string = "normal"
+    ruine2: boolean = false
+    ruineType2: string = "normal"
     habilite: string = ""
     unitName: string = ""
     nativeUnit: boolean = false
@@ -49,23 +52,26 @@ class Classe extends ElementContent {
     unitCombat: number = 5
     unitPV: number = 1
     unitCombatTouche: number = 1
+    homePlanet: Link = new Link("faction")
 }
 
-export default { name: "Planet", classe: Classe, form: Form, display: Display, dep: Array<string>() }
+export default { name: "Planet", classe: Classe, form: Form, display: Display, dep: Array<string>("faction") }
 
-export function PlanetPict({ data }: { data: Classe }) {
-    return (<div className=" text-white">
-        <Image src={data.img || "/404.jpeg"} alt="data.img" width="230" height="230" className="px-4 pt-2" />
-        <div className={"text-center absolute top-2 z-10 " + (data.name.length > 13 ? " text-xl " : " text-2xl") + " font-bold w-full text-shadow-lg " + (data.legendary ? "text-amber-300" : "")}>
+export function PlanetPict({ data,dep }: { data: Classe ,dep:Map<string, Array<ElementJeu>>}) {
+    return (<div className=" text-white h-32.5 w-43 flex items-center justify-center">
+        <Image src={data.img || "/404.jpeg"} alt="data.img" width="230" height="230" className="px-6 pt-2 my-auto" />
+        <div className={"text-center absolute top-0 z-10 " + (data.name.length > 13 || (planetType && data.name.length > 10) ? " text-xl " : " text-2xl") + " font-bold w-full text-shadow-lg " + (data.legendary ? "text-amber-300" : "")}>
             {data.planetType ? <Image className="inline" src={planeteIcon.get(data.planetType) || "/404.jpeg"} alt={data.planetType} width={30} height={30} /> : ""}
-            {data.printName && data.name}
+            {data.homePlanet && data.homePlanet.id!==-1?<Image className="inline" src={getDep(dep,data.homePlanet)?.content?.logo|| "/404.jpeg"} alt={getDep(dep,data.homePlanet)?.content?.logo|| "/404.jpeg"} width={30} height={30}/>:""}
+            {nameAff(data.name)}
         </div>
-        <div className="w-full absolute top-27 z-10 ">
+        <div className="w-full absolute top-24 z-10 ">
             <div className="w-full flex items-center justify-center gap-x-1">
-                {data.inf ? <Hexagone color="blue">{data.inf}</Hexagone> : ""}
                 {data.res ? <Hexagone color="yellow">{data.res}</Hexagone> : ""}
+                {data.inf ? <Hexagone color="blue">{data.inf}</Hexagone> : ""}
                 {data.ruine ? <Ruine type={data.ruineType} /> : ""}
-                {data.techSpe.map(e => <Image src={techIcon.get(e) || "/404.jpeg"} alt={techIcon.get(e) || "/404.jpeg"} width={20} height={20} />)}
+                {data.ruine2 ? <Ruine type={data.ruineType2} /> : ""}
+                {data.techSpe.map((e, i) => <Image key={i} src={techIcon.get(e) || "/404.jpeg"} alt={techIcon.get(e) || "/404.jpeg"} width={20} height={20} />)}
             </div>
         </div>
     </div>)
@@ -73,16 +79,16 @@ export function PlanetPict({ data }: { data: Classe }) {
 
 function Display({ data, dep }: { data: Classe, dep: Map<string, Array<ElementJeu>> }) {
 
-    return (<div className={smallpo + " bg-[url(/ti/bg.png)] bg-cover relative  text-white border-2 rounded-xl"}>
+    return (<div className={smallpo + " bg-[url(/ti/bg.png)] bg-cover relative  text-white border-2 rounded-2xl"}>
 
-        <PlanetPict data={data} />
-        <div className={"h-31 mx-1 mb-1 p-1 rounded-lg bg-black/70 relative " + componentText}><span dangerouslySetInnerHTML={{ __html: replaceDiese(data.habilite) }}></span>
+        <PlanetPict data={data} dep={dep} />
+        <div className={"h-32.5 mx-1 mb-1 p-1 rounded-xl bg-black/70 relative " + componentText}><span dangerouslySetInnerHTML={{ __html: replaceDiese(data.habilite) }}></span>
             {data.nativeUnit ? <>
-                <div className="absolute w-full border-2 rounded-t-sm left-0 font-bold  border-white top-16 px-1">{data.unitName}</div>
-                <div className="absolute w-full border-x-2  h-7.5 left-0 border-white top-19.5 px-1 pt-0.5"><span dangerouslySetInnerHTML={{ __html: replaceDiese(data.unitEffect) }}></span></div>
-                <div className="absolute w-9 border-2 h-4 rounded-bl-sm left-0 font-bold  border-white top-27 pl-1">#: {data.unitQuantity}</div>
-                <div className="absolute w-23 border-y-2 h-4  left-9 font-bold  border-white top-27 pl-1">Combat: {data.unitCombat}{"*".repeat(data.unitCombatTouche)}</div>
-                <div className="absolute w-[41px] border-2 h-4 rounded-br-sm left-32 font-bold  border-white top-27 pl-1">PR: {data.unitPV}</div>
+                <div className="absolute w-full border-2 rounded-t-lg left-0 font-bold  border-white top-17.5 px-1">{data.unitName}</div>
+                <div className="absolute w-full border-x-2  h-7.5 left-0 border-white top-21 px-1 pt-0.5"><span dangerouslySetInnerHTML={{ __html: replaceDiese(data.unitEffect) }}></span></div>
+                <div className="absolute w-8 border-2 h-4 rounded-bl-lg left-0 font-bold  border-white top-28.5 pl-1">#: {data.unitQuantity}</div>
+                <div className="absolute w-22.5 border-y-2 h-4  left-8 font-bold  border-white top-28.5 pl-1">{data.unitCombat ? "Combat: " + data.unitCombat + "*".repeat(data.unitCombatTouche) : ""}</div>
+                <div className="absolute w-10 border-2 h-4 rounded-br-lg left-30.5 font-bold  border-white top-28.5 pl-1">PR: {data.unitPV}</div>
 
             </> : ""}
         </div>
@@ -91,11 +97,12 @@ function Display({ data, dep }: { data: Classe, dep: Map<string, Array<ElementJe
 
 function Form({ content, onChange, onSubmit, id, dep }: { content: any, onChange: any, onSubmit: any, id?: number, dep: Map<string, Array<ElementJeu>> }) {
 
+    if (!content.homePlanet) content.homePlanet=new Link("faction")
+
     return (
         <>
             <form onSubmit={onSubmit}>
                 <TextInput onChange={onChange} name="name" value={content} />
-                <BooleanInput onChange={onChange} name="printName" value={content} />
                 <EnumInput onChange={onChange} name="planetType" value={content} enumClass={planetType} aucun={true} />
                 <EnumInput onChange={onChange} name="type" value={content} enumClass={objectType} />
                 <BooleanInput onChange={onChange} name="legendary" value={content} />
@@ -105,6 +112,8 @@ function Form({ content, onChange, onSubmit, id, dep }: { content: any, onChange
                 <TagInput onChange={onChange} name="techSpe" value={content} tagClass={techType} />
                 <BooleanInput onChange={onChange} name="ruine" value={content} />
                 <EnumInput onChange={onChange} name="ruineType" value={content} enumClass={ruineType} className={content.ruine ? "" : "hidden"} />
+                <BooleanInput onChange={onChange} name="ruine2" value={content} />
+                <EnumInput onChange={onChange} name="ruineType2" value={content} enumClass={ruineType} className={content.ruine2 ? "" : "hidden"} />
                 <br />
                 <EditorInput onChange={onChange} name="habilite" value={content} />
                 <br />
@@ -118,7 +127,8 @@ function Form({ content, onChange, onSubmit, id, dep }: { content: any, onChange
                     <NumberInput onChange={onChange} name="unitPV" value={content} min={0} max={9} />
                 </div>
                 <br />
-
+                <ModalPickerInput onChange={onChange} name={"homePlanet"} value={content} type={["faction"]} dep={dep || []} />
+                <br />
                 <button className={buttonCSS} onClick={onSubmit}> Sauvegarder</button>
             </form>
         </>

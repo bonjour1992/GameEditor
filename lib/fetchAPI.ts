@@ -1,3 +1,5 @@
+import { ElementJeu } from "./datatype";
+
 export async function fetchAPI(url: string, method: string, body?: any): Promise<any> {
 
   const res = await fetch("/api/"  + url, { method: method, headers: { "Content-Type": "application/json", Authorization: 'GRANT', }, body: JSON.stringify(body) });
@@ -10,8 +12,9 @@ export async function fetchAPI(url: string, method: string, body?: any): Promise
 
 }
 
-export async function getListElement(jeu: string, type: string) {
+export async function getListElement(jeu: string, type: string):Promise<{element:[ElementJeu]}> {
   let res = await fetchAPI(jeu+ "/"+type, "GET")
+  res.element=res.element.sort((a:ElementJeu,b:ElementJeu)=>a.content.name>b.content.name)
   return res
 }
 

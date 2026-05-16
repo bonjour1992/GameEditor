@@ -1,7 +1,7 @@
 "use client"
 
 
-import {  replaceDiese } from '@/component/inputUtils'
+import { replaceDiese } from '@/component/inputUtils'
 import { NumberInput } from "../input/NumberInput";
 import { TagInput } from "../input/TagInput";
 import { EnumInput } from "../input/EnumInput";
@@ -10,6 +10,7 @@ import { ElementContent } from "@/lib/datatype";
 import { buttonCSS } from '../classCSS';
 import { componentBorderColor, componentCSS, componentName, componentText } from './ticss';
 import { EditorInput } from '../input/EditorInput';
+import { nameAff } from '../Utils';
 
 
 
@@ -24,10 +25,10 @@ const shipClasse = {
     com: "Commerce",
     fact: "Usine",
     dock: "Dock",
-    sun: "Soleil de guerre",
+    sun: "Soleil de geurre",
     inf: "Infanterie",
     mon: "Monument",
-    trans:"Transport"
+    trans: "Transport"
 
 }
 
@@ -37,10 +38,10 @@ const tag: any = {
     mil: "Militaire",
     civ: "Civil",
     com: "Commercial",
-    trans:"Transport",
+    trans: "Transport",
     terre: "Terrestre",
     space: "Spatiale",
-    bio: "Biologiue",
+    bio: "Biologique",
     transportable: "Transportable",
 
 
@@ -50,13 +51,14 @@ const tagColor: any = {
     mil: "text-red-700",
 }
 
-class Ship extends ElementContent{
+class Ship extends ElementContent {
     type: string = "inf"
     habilite: string = ""
     move?: number
     combat?: number
     combat_touche: number = 1
     cout?: number
+    prod: number = 1
     capacite?: number
     PV: number = 1
     mot_cle: string[] = []
@@ -66,30 +68,30 @@ class Ship extends ElementContent{
 
 
 //TODO: bug affichage sur 4 + touche
- function Display({data}:{data: Ship}) {
+function Display({ data }: { data: Ship }) {
 
-    const CSS_numb="text-xl align-top leading-0 absolute bottom-2.5 w-14 text-center font-extrabold"
- const div_numb="border-2 h-8 w-14 text-center absolute "+componentBorderColor
+    const CSS_numb = "text-xl align-top leading-0 absolute bottom-2.5 w-11.25 text-center font-extrabold"
+    const div_numb = "border-2 h-8 w-11.25 text-center absolute " + componentBorderColor
 
-    return data!==undefined?(
-        <div className={componentCSS}>
-            <div className={componentName}>{data?.name}</div>
-            <div className={"pl-1 text-xs leading-none w-full border-b-2 font-bold"+componentBorderColor}>{data.mot_cle?.map((e, k, { length }) => {
+    return data !== undefined ? (
+        <div className={"border-4 bg-indigo-950/60 rounded-2xl relative z-5 text-amber-50 border-gray-500 w-58 h-37"}>
+            <div className={componentName}>{nameAff(data?.name)}</div>
+            <div className={"pl-1 text-xs leading-none w-full border-b-2 font-bold" + componentBorderColor}>{data.mot_cle?.map((e, k, { length }) => {
                 return (<span key={e} className={"" + (tagColor[e] === undefined ? "" : (tagColor[e]))}>{tag[e] + (k === length - 1 ? "" : ", ")}</span>)
             })}</div>
-             <div className={"h-24 "+componentText}><span dangerouslySetInnerHTML={{ __html: replaceDiese(data.habilite) }}></span></div>
-             {data.cout&&(<div className={"rounded-tr-lg rounded-bl-lg  bottom-0 left-0 "+div_numb}><span className="text-tiny align-top ">Coût</span><div className={CSS_numb}>{data.cout}</div></div>)}
-             {data.move&&(<div className={"rounded-t-lg  bottom-0 left-14 "+div_numb}><span className="text-tiny align-top ">Mouvement</span><div className={CSS_numb}>{data.move}</div></div>)}
-             {data.combat&&(<div className={"rounded-t-lg  bottom-0 left-28 "+div_numb}><span className="text-tiny align-top ">Attaque</span><div className={CSS_numb}>{data.combat}{"*".repeat(data.combat_touche)}</div></div>)}
-            {data.capacite&&(<div className={"rounded-t-lg  bottom-0 left-42 "+div_numb}><span className="text-tiny align-top ">Capacité</span><div className={CSS_numb}>{data.capacite}</div></div>)}
-             {data.PV&&(<div className={"rounded-tl-lg rounded-br-lg  bottom-0 left-56 "+div_numb}><span className="text-tiny align-top ">Résistance</span><div className={CSS_numb}>{data.PV}</div></div>)}
+            <div className={"h-24 " + componentText}><span dangerouslySetInnerHTML={{ __html: replaceDiese(data.habilite) }}></span></div>
+            {data.cout && (<div className={"rounded-tr-lg rounded-bl-lg  bottom-0 left-0 " + div_numb}><span className="text-tiny align-top ">Coût</span><div className={CSS_numb}>{data.cout}{data.prod > 1 ? "*".repeat(data.prod) : ""}</div></div>)}
+            {data.move && (<div className={"rounded-t-lg  bottom-0 left-11.25 " + div_numb}><span className="text-tiny align-top ">Mouvement</span><div className={CSS_numb}>{data.move}</div></div>)}
+            {data.combat && (<div className={"rounded-t-lg  bottom-0 left-22.5 " + div_numb}><span className="text-tiny align-top ">Attaque</span><div className={CSS_numb}>{data.combat}{data.combat_touche > 1 ? "*".repeat(data.combat_touche) : ""}</div></div>)}
+            {data.capacite && (<div className={"rounded-t-lg  bottom-0 left-33.75 " + div_numb}><span className="text-tiny align-top ">Capacité</span><div className={CSS_numb}>{data.capacite}</div></div>)}
+            {data.PV && (<div className={"rounded-tl-lg rounded-br-lg  bottom-0 left-45 " + div_numb}><span className="text-tiny align-top ">Résistance</span><div className={CSS_numb}>{data.PV}</div></div>)}
         </div>
-    ):(<></>)
+    ) : (<></>)
 }
 
 
 
- function Form({content,onChange,onSubmit,id}:{content:any,onChange:any,onSubmit:any,id?:number}) {
+function Form({ content, onChange, onSubmit, id }: { content: any, onChange: any, onSubmit: any, id?: number }) {
     return (
         <div className="flex">
 
@@ -102,12 +104,13 @@ class Ship extends ElementContent{
                 <br />
                 <EditorInput onChange={onChange} name="habilite" value={content} />
                 <br />
-                <NumberInput onChange={onChange} name="move" value={content} min={1} max={9} />
-                <NumberInput onChange={onChange} name="combat" value={content} min={1} max={9} />
-                <NumberInput onChange={onChange} name="combat_touche" value={content} min={1} max={9} />
-                <NumberInput onChange={onChange} name="cout" value={content} min={1} max={99} />
-                <NumberInput onChange={onChange} name="capacite" value={content} min={1} max={99} />
-                <NumberInput onChange={onChange} name="PV" value={content} min={1} max={9} />
+                <NumberInput onChange={onChange} name="cout" value={content} min={1} max={99} label="Cout" />
+                <NumberInput onChange={onChange} name="prod" value={content} min={1} max={9} label="Production" />
+                <NumberInput onChange={onChange} name="move" value={content} min={1} max={9} label="Mouvement" />
+                <NumberInput onChange={onChange} name="combat" value={content} min={1} max={9} label="Combat" />
+                <NumberInput onChange={onChange} name="combat_touche" value={content} min={1} max={9} label="touche" />
+                <NumberInput onChange={onChange} name="capacite" value={content} min={1} max={99} label="Capacité" />
+                <NumberInput onChange={onChange} name="PV" value={content} min={1} max={9} label="Résistance" />
                 <br />
                 <button className={buttonCSS} type="submit">Submit</button>
             </form>
@@ -116,7 +119,7 @@ class Ship extends ElementContent{
     )
 }
 
-export default {name:"Vaisseau",classe:Ship,form:Form,display:Display,dep:Array<string>()}
+export default { name: "Vaisseau", classe: Ship, form: Form, display: Display, dep: Array<string>() }
 
 
 

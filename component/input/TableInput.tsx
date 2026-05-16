@@ -4,24 +4,28 @@ import { Label } from "../inputUtils";
 import { buttonCSS } from "../classCSS";
 
 
-export function TableInput({ Line, header, label, className, max ,name,value,index,onChange}:
+export function TableInput({ Line, header, label, className, max, name, value, index, onChange }:
     {
         max?: number,
         className?: string,
         header?: string[],
-        onChange:   ( name: string, value: number,index?:number) => { },
+        onChange: (name: string, value: number, index?: number) => {},
         Line: (x: number) => ReactNode[],
         label?: string,
-        name:string,
-        value:any,
-        index?:number
+        name: string,
+        value: any,
+        index?: number
     })
     : ReactNode {
 
-    const val= index !==undefined ? value[name][index] : value[name]
+    const val = index !== undefined ? value[name][index] : value[name]
 
     function addLine(event: React.MouseEvent<HTMLButtonElement>) {
-        onChange(name,val+1,index)
+        onChange(name, val + 1, index)
+        event.preventDefault()
+    }
+    function remLine(event: React.MouseEvent<HTMLButtonElement>) {
+        onChange(name, val - 1, index)
         event.preventDefault()
     }
     var rows: ReactNode[] = []
@@ -39,7 +43,8 @@ export function TableInput({ Line, header, label, className, max ,name,value,ind
                     {rows}
                 </tbody>
             </table>
-            <button onClick={addLine} className={buttonCSS+" "+((max && max === val) ? " hidden" : "")}>+ Ajouter</button>
+            <button onClick={remLine} className={buttonCSS + " " + ((val === 0) ? " hidden" : "")}>- Supprimer</button>
+            <button onClick={addLine} className={buttonCSS + " " + ((max && max === val) ? " hidden" : "")}>+ Ajouter</button>
         </span>
     );
 }

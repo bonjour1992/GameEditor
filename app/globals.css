@@ -17,7 +17,7 @@
 }
 
 @theme {
-  --text-tiny: 0.5rem;
+  --text-tiny: 0.4rem;
   --text-tiny--line-height: 0.75rem; 
   --text-tiny--letter-spacing: 0.05rem; 
   --text-tiny--font-weight: 500; 

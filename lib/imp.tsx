@@ -17,7 +17,8 @@ export const imp = new Map<string, {
     }) => JSX.Element;
     display: ({ data }: {
         data: any,
-        dep: any
+        dep: any,
+        className?:any
     }) => JSX.Element;
     dep: Array<string>
 }>(Ti5)
@@ -37,7 +38,7 @@ export function SpecificDisplayerFromDep(params: any) {
         return display && display({ data: new (imp.get(params.link.type)?.classe || ElementContent ), dep: params.dep })
     }
     let element= getDep(params.dep,params.link)
-    return display && display({ data: element.content, dep: params.dep })
+    return display && display({ data: element.content, dep: params.dep ,className:params.className})
 }
 
 export function SpecificEditor(params: any) {
@@ -58,3 +59,13 @@ export const jeu = [
     { name: "Twiligth Imperium 5", pict: "/ti5.jpg", logo: "/ti/Color/General Icons/Relic.png", slug: "ti5" },
     { name: "test", slug: "test" }
 ]
+
+export function getJeu(s:string)
+{
+    return jeu.filter(e=>e.slug===s)[0].name
+}
+
+export function getImp(s:string)
+{
+return imp.get(s)?.name
+}
