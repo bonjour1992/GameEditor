@@ -8,6 +8,7 @@ import Image from "next/image";
 import { techType, turnNumber } from "./ti";
 import { componentCSS, componentName, componentText } from "./ticss";
 import { EditorInput } from "../input/EditorInput";
+import { replaceDiese } from "../inputUtils";
 
 
 const techCSS = new Map([
@@ -32,17 +33,17 @@ function Display({ data, dep }: { data: Tech, dep: Map<string, Array<ElementJeu>
 
     return (<div className={componentCSS}>
         <div className={componentName}>
-            {Array.from(Array((data?.tier|| 1) - 1).keys()).map(e => {
+            {Array.from(Array((data?.tier || 1) - 1).keys()).map(e => {
                 return (<div key={e} className={" m-0.5 float-left size-4 border-4 rounded-md" + techCSS.get(data.techType)}></div>)
             })}
             <span className="ml-1"> {data?.name}</span> </div>
-        <div className={"h-31.75 "+componentText}> <span dangerouslySetInnerHTML={{ __html: data?.effet }}></span></div>
+        <div className={"h-31.75 " + componentText}> <span dangerouslySetInnerHTML={{ __html: replaceDiese(data?.effet) }}></span></div>
         <div className="grid grid-cols-16 w-68.5">
             <div className={"size-5 border-4 rounded-bl-lg" + techCSS.get(data?.techType)}></div>
-            {Array.from(Array(14).keys()).map((e,i) => {
+            {Array.from(Array(14).keys()).map((e, i) => {
                 return (<div key={i} className={"size-5 border-4 " + techCSS.get(e + 1 < data?.cout ? data?.techType : "vide")}></div>)
             })}
-            <div className={"size-5 border-4 rounded-br-lg " + techCSS.get(data?.cout == 16 ? data?.techType : "vide")}></div>
+            <div className={"size-5 border-2 rounded-br-lg " + techCSS.get(data?.cout == 16 ? data?.techType : "vide")}></div>
         </div>
 
     </div>)
@@ -53,11 +54,11 @@ function Form({ content, onChange, onSubmit, id, dep }: { content: any, onChange
     return (
         <>
             <form onSubmit={onSubmit}>
-                <TextInput onChange={onChange} name="name" value={content.name} />
-                <EnumInput onChange={onChange} name="techType" value={content.techType} enumClass={techType} />
-                <NumberInput onChange={onChange} name="tier" value={content.tier} min={1} max={5} />
-                <NumberInput onChange={onChange} name="cout" value={content.cout} min={1} max={16} />
-                <EditorInput onChange={onChange} name="effet" value={content.effet} />
+                <TextInput onChange={onChange} name="name" value={content} />
+                <EnumInput onChange={onChange} name="techType" value={content} enumClass={techType} />
+                <NumberInput onChange={onChange} name="tier" value={content} min={1} max={5} />
+                <NumberInput onChange={onChange} name="cout" value={content} min={1} max={16} />
+                <EditorInput onChange={onChange} name="effet" value={content} />
 
                 <button className={buttonCSS} onClick={onSubmit}> Sauvegarder</button>
             </form>
@@ -66,4 +67,4 @@ function Form({ content, onChange, onSubmit, id, dep }: { content: any, onChange
 }
 
 
-export default {name:"Technologie", classe: Tech, form: Form, display: Display, dep: Array<string>() }
+export default { name: "Technologie", classe: Tech, form: Form, display: Display, dep: Array<string>() }

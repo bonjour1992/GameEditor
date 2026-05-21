@@ -92,4 +92,4 @@ function Form({ content, onChange, onSubmit, id, dep }: { content: any, onChange
 
 
 
-export default { name: "Faction", classe: Faction, form: Form, display: Display, dep: Array<string>("ship", "tech", "habilite", "agent") }
+export default { name: "Faction", classe: Faction, form: Form, display: Display, dep: Array<string>("ship", "tech", "habilite", "agent"),print:"grid-cols-1" }

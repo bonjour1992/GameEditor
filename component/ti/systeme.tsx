@@ -32,9 +32,9 @@ class Classe extends ElementContent {
 function Display({ data, dep }: { data: Classe, dep: Map<string, Array<ElementJeu>> }) {
 
 
-    return (<div className="w-98 h-85 bg-[url(/ti/system/bgSystem.png)] bg-cover relative overflow-hidden" >
-        {data.anomaly && <Image src={anomalyPict.get(data.anomaly) || "/404.jpeg"} alt={data.anomaly} width={392} height={340} />}
-        {data.anomaly && <Image src="/ti/system/anomalie.png" alt="contient anomalie" width={392} height={340} className="absolute left-0 top-0" />}
+    return (<div className="w-94 h-81.5 bg-[url(/ti/system/bgSystem.png)] bg-cover relative overflow-hidden" >
+        {data.anomaly && <Image src={anomalyPict.get(data.anomaly) || "/404.jpeg"} alt={data.anomaly} width={376} height={326} />}
+        {data.anomaly && <Image src="/ti/system/anomalie.png" alt="contient anomalie" width={376} height={326} className="absolute left-0 top-0" />}
 
         {[0, 1, 2].map(e => <div key={e} className="absolute" style={{ top: data.elemsY[e] + "px", left: data.elemsX[e] + "px", transform: "scale(" + (data.elemsSize[e] / 100) + ")" }}>
             {data.elems[e].id !== -1 && <PlanetPict data={getDep(dep, data.elems[e])?.content} dep={dep}/>}
@@ -65,4 +65,4 @@ function Form({ content, onChange, onSubmit, id, dep }: { content: any, onChange
 }
 
 
-export default { name: "Systéme", classe: Classe, form: Form, display: Display, dep: Array<string>("planet","faction") }
+export default { name: "Systéme", classe: Classe, form: Form, display: Display, dep: Array<string>("planet","faction"),print:"grid-cols-4" }

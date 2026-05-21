@@ -5,6 +5,7 @@ import { EditorInput } from "../input/EditorInput";
 import { ColorInput } from "../input/ColorInput";
 import { componentCSS, componentName, componentText } from "./ticss";
 import { replaceDiese } from "../inputUtils";
+import { nameAff } from "../Utils";
 
 
 
@@ -20,10 +21,10 @@ function Display({ data, dep,className}: { data: Classe, dep: Map<string, Array<
 
 
     return (
-        <div className={"border-4 rounded-xl relative z-5  min-h-21 maw-h-44 w-38  bg-indigo-950/60 "+className} style={{ color: data.color, borderColor: data.color }}>
-            <div className={"border-b-4  py-0.5 w-full pl-2 text-lg font-bold leading-none"}>
-                <span className="ml-1"> {data?.name}</span> </div>
-            <div className={" text-[9px] leading-none pl-1"}> <span dangerouslySetInnerHTML={{ __html: replaceDiese(data?.usage) }}></span></div>
+        <div className={"border-4 rounded-xl relative z-5  min-h-18 maw-h-44 w-38  bg-indigo-950/60 "+className} style={{ color: data.color, borderColor: data.color }}>
+            <div className={"border-b-2  w-full pl-2 text-sm font-bold leading-none"}>
+                <span className="ml-1"> {nameAff(data?.name)}</span> </div>
+            <div className={" text-[9px] leading-none pl-1 pb-1 "}> <span dangerouslySetInnerHTML={{ __html: replaceDiese(data?.usage) }}></span></div>
 
 
         </div>)

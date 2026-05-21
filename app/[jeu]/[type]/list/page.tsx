@@ -37,14 +37,14 @@ export default function Home() {
     <>
       <NavHead jeu={jeu} />
       <Main titre={"Liste des " + imp.get(type)?.name+"s ("+(list.length||0)+")"} >
-        <a href={"/"+jeu+"/"+type+"/new"}>Créer nouveau</a>
+        <a className="print:hidden" href={"/"+jeu+"/"+type+"/new"}>Créer nouveau</a>
         <div className="flex flex-wrap">
 
           {
             list.map((e, k) => {
-              return (<div key={k} className="p-2">
+              return (<div key={k} className="p-2 ">
                 <div className="w-full">
-                  <a href={"./" + e["id"] + "/edit"} >Edit</a>
+                  <a className="print:hidden"  href={"./" + e["id"] + "/edit"} >Edit</a>
                 </div>
                 <SpecificDisplayer content={e.content} type={type} dep={dep} />
               </div>)

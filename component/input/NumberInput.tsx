@@ -7,7 +7,7 @@ export function NumberInput({ index, className, onChange, name = "name", value, 
     {
         index?: number,
         className?: string,
-        onChange: (name: string, value: number, index?: number) => {},
+        onChange: (name: string, value: number, index?: number) => void,
         name: string,
         label?: string,
         value: any,
@@ -23,7 +23,7 @@ export function NumberInput({ index, className, onChange, name = "name", value, 
                 type="number"
                 name={name}
                 id={name}
-                value={index !== undefined ? value[name][index] : value[name] || ""}
+                value={index !== undefined ? value[name][index] ||0: value[name] || 0}
                 min={min}
                 max={max}
                 onChange={e => onChange(name , parseInt(e.target.value) ,index)} />

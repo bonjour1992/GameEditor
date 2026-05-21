@@ -20,7 +20,8 @@ export const imp = new Map<string, {
         dep: any,
         className?:any
     }) => JSX.Element;
-    dep: Array<string>
+    dep: Array<string>,
+    print?:string
 }>(Ti5)
 
 export function SpecificDisplayer(params: any) {

@@ -67,6 +67,9 @@ export const strDiese = new Map<string,{code:string,rule:string}>([
 ["neg",{code:ReactDOMServer.renderToStaticMarkup(<span className="text-shadow-amber-200">Negociant</span>),rule:"Sont les agents qui permettent d'effectuer les actions de production et construction"}],
 ["prevote",{code:ReactDOMServer.renderToStaticMarkup(<span className="">Phase de Prevote</span>),rule:"Phase de déplacement de tout type de vaisseau"}],
 ["livr",{code:ReactDOMServer.renderToStaticMarkup(<span className="font-bold">livraisons commercialles</span>),rule:"Phase de déplacement de tout type de vaisseau"}],
+["prev",{code:ReactDOMServer.renderToStaticMarkup(<span className="font-bold">Phase de revendication</span>),rule:"Phase de déplacement de tout type de vaisseau"}],
+["pcter",{code:ReactDOMServer.renderToStaticMarkup(<span className="font-bold">Phase de combat terrestre</span>),rule:"Phase de déplacement de tout type de vaisseau"}],
+["pleg",{code:ReactDOMServer.renderToStaticMarkup(<span className="font-bold text-amber-300 ">Planéte légendaire</span>),rule:"Phase de déplacement de tout type de vaisseau"}],
 
 
 ])

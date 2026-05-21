@@ -55,12 +55,12 @@ class Classe extends ElementContent {
     homePlanet: Link = new Link("faction")
 }
 
-export default { name: "Planet", classe: Classe, form: Form, display: Display, dep: Array<string>("faction") }
+export default { name: "Planet", classe: Classe, form: Form, display: Display, dep: Array<string>("faction"),print:"grid-cols-6" }
 
 export function PlanetPict({ data,dep }: { data: Classe ,dep:Map<string, Array<ElementJeu>>}) {
     return (<div className=" text-white h-32.5 w-43 flex items-center justify-center">
         <Image src={data.img || "/404.jpeg"} alt="data.img" width="230" height="230" className="px-6 pt-2 my-auto" />
-        <div className={"text-center absolute top-0 z-10 " + (data.name.length > 13 || (planetType && data.name.length > 10) ? " text-xl " : " text-2xl") + " font-bold w-full text-shadow-lg " + (data.legendary ? "text-amber-300" : "")}>
+        <div className={"text-center absolute top-0 z-10 " + (data.name.length > 13 || (planetType && data.name.length > 10) ? " text-xl " : " text-2xl") + " font-bold w-full text-shadow-lg " + (data.legendary ?   "text-amber-300 " : data.type==="sat"? " text-gray-400 ":"")}>
             {data.planetType ? <Image className="inline" src={planeteIcon.get(data.planetType) || "/404.jpeg"} alt={data.planetType} width={30} height={30} /> : ""}
             {data.homePlanet && data.homePlanet.id!==-1?<Image className="inline" src={getDep(dep,data.homePlanet)?.content?.logo|| "/404.jpeg"} alt={getDep(dep,data.homePlanet)?.content?.logo|| "/404.jpeg"} width={30} height={30}/>:""}
             {nameAff(data.name)}
@@ -79,7 +79,7 @@ export function PlanetPict({ data,dep }: { data: Classe ,dep:Map<string, Array<E
 
 function Display({ data, dep }: { data: Classe, dep: Map<string, Array<ElementJeu>> }) {
 
-    return (<div className={smallpo + " bg-[url(/ti/bg.png)] bg-cover relative  text-white border-2 rounded-2xl"}>
+    return (<div className={smallpo + " bg-[url(/ti/bg.png)] bg-cover relative  text-white  rounded-2xl"}>
 
         <PlanetPict data={data} dep={dep} />
         <div className={"h-32.5 mx-1 mb-1 p-1 rounded-xl bg-black/70 relative " + componentText}><span dangerouslySetInnerHTML={{ __html: replaceDiese(data.habilite) }}></span>
