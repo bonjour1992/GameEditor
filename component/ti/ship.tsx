@@ -104,13 +104,13 @@ function Form({ content, onChange, onSubmit, id }: { content: any, onChange: any
                 <br />
                 <EditorInput onChange={onChange} name="habilite" value={content} />
                 <br />
-                <NumberInput onChange={onChange} name="cout" value={content} min={1} max={99} label="Cout" />
+                <NumberInput onChange={onChange} name="cout" value={content} min={0} max={99} label="Cout" />
                 <NumberInput onChange={onChange} name="prod" value={content} min={1} max={9} label="Production" />
-                <NumberInput onChange={onChange} name="move" value={content} min={1} max={9} label="Mouvement" />
-                <NumberInput onChange={onChange} name="combat" value={content} min={1} max={9} label="Combat" />
+                <NumberInput onChange={onChange} name="move" value={content} min={0} max={9} label="Mouvement" />
+                <NumberInput onChange={onChange} name="combat" value={content} min={0} max={9} label="Combat" />
                 <NumberInput onChange={onChange} name="combat_touche" value={content} min={1} max={9} label="touche" />
-                <NumberInput onChange={onChange} name="capacite" value={content} min={1} max={99} label="Capacité" />
-                <NumberInput onChange={onChange} name="PV" value={content} min={1} max={9} label="Résistance" />
+                <NumberInput onChange={onChange} name="capacite" value={content} min={0} max={99} label="Capacité" />
+                <NumberInput onChange={onChange} name="PV" value={content} min={0} max={9} label="Résistance" />
                 <br />
                 <button className={buttonCSS} type="submit">Submit</button>
             </form>

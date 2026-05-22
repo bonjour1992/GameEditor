@@ -43,7 +43,7 @@ function Display({ data, dep }: { data: Tech, dep: Map<string, Array<ElementJeu>
             {Array.from(Array(14).keys()).map((e, i) => {
                 return (<div key={i} className={"size-5 border-4 " + techCSS.get(e + 1 < data?.cout ? data?.techType : "vide")}></div>)
             })}
-            <div className={"size-5 border-2 rounded-br-lg " + techCSS.get(data?.cout == 16 ? data?.techType : "vide")}></div>
+            <div className={"size-5 border-4 rounded-br-lg " + techCSS.get(data?.cout == 16 ? data?.techType : "vide")}></div>
         </div>
 
     </div>)

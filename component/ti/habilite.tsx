@@ -23,7 +23,7 @@ function Display({ data, dep }: { data: Habilite, dep: Map<string, Array<Element
     return (<div className={"ml-3 mt-2 border-4 bg-indigo-950/60 rounded-2xl relative z-5 text-amber-50  border-gray-500 w-49"}>
         <div className={componentName}>
              <span className="ml-1"> {data?.name}</span> </div>
-        <div className={componentText+" py-2"}> <span dangerouslySetInnerHTML={{ __html: replaceDiese(data?.effet) }}></span></div>
+        <div className={componentText+" py-1"}> <span dangerouslySetInnerHTML={{ __html: replaceDiese(data?.effet) }}></span></div>
 
             
     </div>)

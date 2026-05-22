@@ -70,6 +70,11 @@ export const strDiese = new Map<string,{code:string,rule:string}>([
 ["prev",{code:ReactDOMServer.renderToStaticMarkup(<span className="font-bold">Phase de revendication</span>),rule:"Phase de déplacement de tout type de vaisseau"}],
 ["pcter",{code:ReactDOMServer.renderToStaticMarkup(<span className="font-bold">Phase de combat terrestre</span>),rule:"Phase de déplacement de tout type de vaisseau"}],
 ["pleg",{code:ReactDOMServer.renderToStaticMarkup(<span className="font-bold text-amber-300 ">Planéte légendaire</span>),rule:"Phase de déplacement de tout type de vaisseau"}],
+["raid",{code:ReactDOMServer.renderToStaticMarkup(<span className="font-bold">Raid</span>),rule:"Phase de déplacement de tout type de vaisseau"}],
+["fpre",{code:ReactDOMServer.renderToStaticMarkup(<span className="font-bold">Frappe en premier</span>),rule:"Phase de déplacement de tout type de vaisseau"}],
+["pcom",{code:ReactDOMServer.renderToStaticMarkup(<span className="font-bold">Phase de combat spatial</span>),rule:"Phase de déplacement de tout type de vaisseau"}],
+["con",{code:ReactDOMServer.renderToStaticMarkup(<span className="font-bold">Contrôle</span>),rule:"Phase de déplacement de tout type de vaisseau"}],
+["pbomb",{code:ReactDOMServer.renderToStaticMarkup(<span className="">Phase de Bombardement</span>),rule:"Phase de déplacement de tout type de vaisseau"}],
 
 
 ])

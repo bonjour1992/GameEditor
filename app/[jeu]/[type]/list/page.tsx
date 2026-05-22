@@ -3,7 +3,7 @@
 
 import { useParams } from "next/navigation";
 import { useEffect, useState } from "react";
-import { getListElement } from "@/lib/fetchAPI"
+import { createElement, getListElement } from "@/lib/fetchAPI"
 import { Main } from "@/component/main";
 import { NavHead } from "@/component/NavHead";
 
@@ -32,19 +32,30 @@ export default function Home() {
     req()
   }, [])
 
+  function dupliquer(e: any) {
+
+  }
 
   return (
     <>
       <NavHead jeu={jeu} />
-      <Main titre={"Liste des " + imp.get(type)?.name+"s ("+(list.length||0)+")"} >
-        <a className="print:hidden" href={"/"+jeu+"/"+type+"/new"}>Créer nouveau</a>
+      <Main titre={"Liste des " + imp.get(type)?.name + "s (" + (list.length || 0) + ")"} >
+        <a className="print:hidden" href={"/" + jeu + "/" + type + "/new"}>Créer nouveau</a>
         <div className="flex flex-wrap">
 
           {
             list.map((e, k) => {
               return (<div key={k} className="p-2 ">
                 <div className="w-full">
-                  <a className="print:hidden"  href={"./" + e["id"] + "/edit"} >Edit</a>
+                  <a className="print:hidden" href={"./" + e["id"] + "/edit"} >Edit</a>
+                  <button onClick={(event) => {
+                    let f = async () => {
+                      let res = await createElement(jeu, type, e.content)
+                      window.location.assign("/" + jeu + "/" + type + "/" + res.id + "/edit")
+                    }
+                    f()
+                    event.preventDefault()
+                  }}>Dupliquer</button>
                 </div>
                 <SpecificDisplayer content={e.content} type={type} dep={dep} />
               </div>)
