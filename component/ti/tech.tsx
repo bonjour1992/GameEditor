@@ -6,19 +6,12 @@ import { buttonCSS } from "../classCSS";
 import { imp, SpecificDisplayer } from "@/lib/imp";
 import Image from "next/image";
 import { techType, turnNumber } from "./ti";
-import { componentCSS, componentName, componentText } from "./ticss";
+import { componentCSS, componentName, componentText, techCSS } from "./ticss";
 import { EditorInput } from "../input/EditorInput";
 import { replaceDiese } from "../inputUtils";
 
 
-const techCSS = new Map([
 
-    ["gen", " border-green-800 bg-green-400"],
-    ["spa", " border-blue-800 bg-blue-400"],
-    ["mil", " border-red-800 bg-red-400"],
-    ["soc", " border-yellow-800 bg-yellow-400"],
-    ["vide", " border-gray-500 bg-gray-200"]
-])
 
 class Tech extends ElementContent {
     techType = "spa";
@@ -27,23 +20,23 @@ class Tech extends ElementContent {
     effet = ""
 }
 
-function Display({ data, dep }: { data: Tech, dep: Map<string, Array<ElementJeu>> }) {
+function Display({ data, dep,context={unlocked:false} }: { data: Tech, dep: Map<string, Array<ElementJeu>> ,context:{unlocked:boolean}}) {
     let turn = Array.from(Array(turnNumber)).map((e, i) => i + 1)
 
 
-    return (<div className={componentCSS}>
+    return (<div className={ "border-4 bg-indigo-950/60 rounded-2xl relative z-5 text-amber-50  border-gray-500  w-57.75 h-36"}>
         <div className={componentName}>
             {Array.from(Array((data?.tier || 1) - 1).keys()).map(e => {
-                return (<div key={e} className={" m-0.5 float-left size-4 border-4 rounded-md" + techCSS.get(data.techType)}></div>)
+                return (<div key={e} className={" m-0.25 float-left size-3.5 border-2 rounded-md" + techCSS.get(data.techType)}></div>)
             })}
             <span className="ml-1"> {data?.name}</span> </div>
-        <div className={"h-31.75 " + componentText}> <span dangerouslySetInnerHTML={{ __html: replaceDiese(data?.effet) }}></span></div>
-        <div className="grid grid-cols-16 w-68.5">
-            <div className={"size-5 border-4 rounded-bl-lg" + techCSS.get(data?.techType)}></div>
+        <div className={"h-24 " + componentText}> <span dangerouslySetInnerHTML={{ __html: replaceDiese(data?.effet) }}></span></div>
+        <div className="grid grid-cols-16 w-56">
+            <div className={"size-3.5 border-2 rounded-bl-2xl" + techCSS.get(data?.techType)}>{context.unlocked?"x":""}</div>
             {Array.from(Array(14).keys()).map((e, i) => {
-                return (<div key={i} className={"size-5 border-4 " + techCSS.get(e + 1 < data?.cout ? data?.techType : "vide")}></div>)
+                return (<div key={i} className={"size-3.5 border-2 " + techCSS.get(e + 1 < data?.cout ? data?.techType : "vide")}></div>)
             })}
-            <div className={"size-5 border-4 rounded-br-lg " + techCSS.get(data?.cout == 16 ? data?.techType : "vide")}></div>
+            <div className={"size-3.5 border-2 rounded-br-2xl " + techCSS.get(data?.cout == 16 ? data?.techType : "vide")}></div>
         </div>
 
     </div>)

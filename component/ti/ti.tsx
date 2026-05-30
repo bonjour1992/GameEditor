@@ -5,6 +5,9 @@ import HabiliteHandler from "@/component/ti/habilite"
 import AgentHandler from "@/component/ti/agent"
 import PlanetHandler from "@/component/ti/planet"
 import SystemHandler from "@/component/ti/systeme"
+import TechSheetHandler from "@/component/ti/techSheet"
+import MercenaireHandler from "@/component/ti/mercenaire"
+
 
 import ReactDOMServer from "react-dom/server";
 
@@ -23,6 +26,8 @@ export const element = new Array <[string,any]>(
     ["agent",AgentHandler],
     ["planet",PlanetHandler],
     ["system",SystemHandler],
+    ["techsheet",TechSheetHandler],
+    ["mercenaire",MercenaireHandler],
 
 )
 
@@ -75,6 +80,7 @@ export const strDiese = new Map<string,{code:string,rule:string}>([
 ["pcom",{code:ReactDOMServer.renderToStaticMarkup(<span className="font-bold">Phase de combat spatial</span>),rule:"Phase de déplacement de tout type de vaisseau"}],
 ["con",{code:ReactDOMServer.renderToStaticMarkup(<span className="font-bold">Contrôle</span>),rule:"Phase de déplacement de tout type de vaisseau"}],
 ["pbomb",{code:ReactDOMServer.renderToStaticMarkup(<span className="">Phase de Bombardement</span>),rule:"Phase de déplacement de tout type de vaisseau"}],
+["pprop",{code:ReactDOMServer.renderToStaticMarkup(<span className="">Phase de proposition</span>),rule:"Phase de déplacement de tout type de vaisseau"}],
 
 
 ])
