@@ -7,6 +7,9 @@ import PlanetHandler from "@/component/ti/planet"
 import SystemHandler from "@/component/ti/systeme"
 import TechSheetHandler from "@/component/ti/techSheet"
 import MercenaireHandler from "@/component/ti/mercenaire"
+import AgendaHandler from "@/component/ti/agenda"
+import ReliqueHandler from "@/component/ti/relique"
+import PromesseHandler from "@/component/ti/promesse"
 
 
 import ReactDOMServer from "react-dom/server";
@@ -28,6 +31,9 @@ export const element = new Array <[string,any]>(
     ["system",SystemHandler],
     ["techsheet",TechSheetHandler],
     ["mercenaire",MercenaireHandler],
+    ["Agenda",AgendaHandler],
+    ["Relique",ReliqueHandler],
+    ["Promesse",PromesseHandler],
 
 )
 

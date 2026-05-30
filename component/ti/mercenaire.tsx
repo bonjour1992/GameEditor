@@ -10,7 +10,6 @@ import { NumberInput } from "../input/NumberInput";
 
 
 
-//TODO: WIP
 class Classe extends ElementContent {
     sousTitre: string = ""
     usage: string = ""
