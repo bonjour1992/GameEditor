@@ -12,6 +12,7 @@ import { componentName, componentText, techCSS, techTextCSS } from "./ticss";
 import { replaceDiese } from "../inputUtils";
 import { EnumInput } from "../input/EnumInput";
 import { BooleanInput } from "../input/BooleanInput";
+import { nameAff } from "../Utils";
 
 
 class TechSheet extends ElementContent {
@@ -26,15 +27,15 @@ function Display({ data, dep }: { data: TechSheet, dep: Map<string, Array<Elemen
     let turn = Array.from(Array(turnNumber)).map((e, i) => i + 1)
 
     return (<div className={"bg-[url(/ti/bg%20star.jpg)] overflow-hidden" + A4pa}>
-<div className="w-full h-40 ">
-    <div  className={" h-36 w-58 float-right"}>{data?.techs && data?.techs[16].id !== -1 && <SpecificDisplayerFromDep link={data.techs[16]} dep={dep} context={{unlocked:data.unlocked[16]}} />}</div>
-    <div  className={" h-36 w-58 float-right"}>{data?.techs && data?.techs[17].id !== -1 && <SpecificDisplayerFromDep link={data.techs[17]} dep={dep} context={{unlocked:data.unlocked[17]}} />}</div>
+        <div className="w-full h-40 ">
+            <div className={" h-36 w-58 float-right"}>{data?.techs && data?.techs[16].id !== -1 && <SpecificDisplayerFromDep link={data.techs[16]} dep={dep} context={{ unlocked: data.unlocked[16] }} />}</div>
+            <div className={" h-36 w-58 float-right"}>{data?.techs && data?.techs[17].id !== -1 && <SpecificDisplayerFromDep link={data.techs[17]} dep={dep} context={{ unlocked: data.unlocked[17] }} />}</div>
 
-        <h1 className={"text-6xl mx-8 mt-4 w-160"+(techTextCSS.get(data.techType)||" vide ")} ><Image src={data?.logo || "/404.jpeg"} loading="eager" alt="Logo manquant" width="80" height="80" className="inline" />   <b>{data?.name}</b></h1>
-</div>
+            <h1 className={"text-6xl mx-8 mt-4 w-160" + (techTextCSS.get(data.techType) || " vide ")} ><Image src={data?.logo || "/404.jpeg"} loading="eager" alt="Logo manquant" width="80" height="80" className="inline" />   <b>{nameAff(data?.name)}</b></h1>
+        </div>
         <div className="grid grid-cols-4 w-240 gap-2 overflow auto float-left">
             {Array.from(new Array(16).keys()).map((i) => {
-                return (<div key={i} className={" h-36 w-58"}>{data?.techs && data?.techs[i].id !== -1 && <SpecificDisplayerFromDep link={data.techs[i]} dep={dep} context={{unlocked:data.unlocked[i]}} />}</div>)
+                return (<div key={i} className={" h-36 w-58"}>{data?.techs && data?.techs[i].id !== -1 && <SpecificDisplayerFromDep link={data.techs[i]} dep={dep} context={{ unlocked: data.unlocked[i] }} />}</div>)
             })}
         </div>
 
@@ -43,7 +44,7 @@ function Display({ data, dep }: { data: TechSheet, dep: Map<string, Array<Elemen
 
                 <span className="ml-1"> Connaissance</span> </div>
             <div className={"h-71.5 " + componentText}> <span dangerouslySetInnerHTML={{ __html: replaceDiese(data?.connaissance) }}></span></div>
-            <div className="grid grid-cols-10 w-35">
+            <div className="grid grid-cols-10 w-35 absolute bottom-0">
                 {Array.from(Array(190).keys()).map((e, i) => {
                     return (<div key={i} className={"size-3.5 border-2 " + techCSS.get(data?.techType)}></div>)
                 })}
@@ -77,7 +78,7 @@ function Form({ content, onChange, onSubmit, id, dep }: { content: any, onChange
                     {Array.from((new TechSheet).techs.keys()).map((i) => {
                         return (<div key={i} className="p-2" >
                             <ModalPickerInput onChange={onChange} name={"techs"} value={content} index={i} type={["tech"]} dep={dep || []} />
-                        <BooleanInput onChange={onChange} name={"unlocked"} value={content}  index={i}/></div>)
+                            <BooleanInput onChange={onChange} name={"unlocked"} value={content} index={i} /></div>)
                     })}
 
                 </div>

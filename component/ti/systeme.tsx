@@ -24,15 +24,15 @@ const anomalyPict = new Map([["ast", "/ti/system/asteroide.png"],
 class Classe extends ElementContent {
     anomaly: string = ""
     elems: Array<Link> = new Array(3).fill(new Link("planet"))
-    elemsX: Array<number> = new Array(3).fill(115)
+    elemsX: Array<number> = new Array(3).fill(100)
     elemsY: Array<number> = new Array(3).fill(100)
     elemsSize: Array<number> = new Array(3).fill(120)
 }
 
-function Display({ data, dep }: { data: Classe, dep: Map<string, Array<ElementJeu>> }) {
+function Display({ data, dep,className }: { data: Classe, dep: Map<string, Array<ElementJeu>>,className:string }) {
 
 
-    return (<div className="w-94 h-81.5 bg-[url(/ti/system/bgSystem.png)] bg-cover relative overflow-hidden" >
+    return (<div className={"w-94 h-81.5 bg-[url(/ti/system/bgSystem.png)] bg-cover relative overflow-hidden "+className} >
         {data.anomaly && <Image src={anomalyPict.get(data.anomaly) || "/404.jpeg"} alt={data.anomaly} width={376} height={326} />}
         {data.anomaly && <Image src="/ti/system/anomalie.png" alt="contient anomalie" width={376} height={326} className="absolute left-0 top-0" />}
 

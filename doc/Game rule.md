@@ -10,6 +10,7 @@
 - combat terrestre
 - retraite
 - Production
+- Construction
 - Revendication
 - phase de mandat
 - phase de prevote

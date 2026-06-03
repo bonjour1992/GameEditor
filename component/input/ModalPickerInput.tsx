@@ -1,5 +1,5 @@
 import { ElementJeu, Link } from "@/lib/datatype";
-import { SpecificDisplayerFromDep } from "@/lib/imp";
+import { imp, SpecificDisplayerFromDep } from "@/lib/imp";
 
 import { ReactNode, useState } from "react";
 import { buttonCSS, modalCSS, dialogCSS, h2CSS } from "../classCSS";
@@ -19,6 +19,7 @@ export function ModalPickerInput(
             index?: number
         })
     : ReactNode {
+console.log(dep)
 
     const val = index !== undefined ? value[name][index] : value[name]
 
@@ -40,13 +41,13 @@ export function ModalPickerInput(
 
         <div id={"modal" + name + index} className={modalCSS + " hidden"}>
             <div id="dialog"
-                className={dialogCSS}
+                className={dialogCSS+""}
                 role="dialog"
                 aria-modal="true"
                 aria-labelledby="dialogTitle">
                 <div className="border-b-2 pb-2">
                     <button onClick={close} className={buttonCSS + " float-right "} >Fermer</button>
-                    <h2 className={h2CSS} >Selection de {type}</h2>
+                    <h2 className={h2CSS} >Selection de {type.map(e=>imp.get(e)?.name+"/")}</h2>
                 </div>
                 <div className="w-full border-b-2 pt-1 pb-1">
                     <select id={"select" + name + index} value={selected.toString()} onChange={(e) => { setSelected((new Link).fromString(e.target.value)) }} >
@@ -64,8 +65,9 @@ export function ModalPickerInput(
                         }
                     }>Valider</button>
                 </div>
+                <div className=" m-2  w-140 h-72 rounded-lg  overflow-scroll ">
                 <SpecificDisplayerFromDep link={selected} dep={dep} />
-
+</div>
             </div>
 
         </div>

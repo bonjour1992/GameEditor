@@ -20,6 +20,15 @@ export async function getListElement(jeu: string, type: string) {
     return element
 }
 
+export async function getSearch(jeu: string) {
+    const client = await clientPromise;
+    const db = client.db(process.env.DATABASE);
+    let element = await db.collection("element").aggregate([ { "$sort": { "meta.created": 1 } }, { $group: { _id: "$id", "doc": { "$last": "$$ROOT" } } }]).toArray();
+    element = element.map((e: { doc: any; }) => {let r= e.doc.meta;r.id=e.doc?.id;r.name=e.doc.content?.name;return r})
+    element=element.filter((e: any)=>e.status!=="DELETED")
+    return element
+}
+
 
 function purgeLien(content: any) {
     if (!content){

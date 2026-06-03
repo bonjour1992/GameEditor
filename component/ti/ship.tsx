@@ -70,21 +70,21 @@ class Ship extends ElementContent {
 //TODO: bug affichage sur 4 + touche
 function Display({ data }: { data: Ship }) {
 
-    const CSS_numb = "text-xl align-top leading-0 absolute bottom-2.5 w-11.25 text-center font-extrabold"
+    const CSS_numb = "text-xl leading-0  w-11 text-center font-extrabold absolute bottom-2.5 "
     const div_numb = "border-2 h-8 w-11.25 text-center absolute " + componentBorderColor
-
+    const CSS_label ="text-[6px] align-top pt-1 pl-0.5"
     return data !== undefined ? (
         <div className={"border-4 bg-indigo-950/60 rounded-2xl relative z-5 text-amber-50 border-gray-500 w-58 h-37"}>
             <div className={componentName}>{nameAff(data?.name)}</div>
-            <div className={"pl-1 text-xs leading-none w-full border-b-2 font-bold" + componentBorderColor}>{data.mot_cle?.map((e, k, { length }) => {
+            <div className={"pl-1 py-0.25 text-[10px] leading-none w-full border-b-2 font-bold" + componentBorderColor}>{data.mot_cle?.map((e, k, { length }) => {
                 return (<span key={e} className={"" + (tagColor[e] === undefined ? "" : (tagColor[e]))}>{tag[e] + (k === length - 1 ? "" : ", ")}</span>)
             })}</div>
-            <div className={"h-24 " + componentText}><span dangerouslySetInnerHTML={{ __html: replaceDiese(data.habilite) }}></span></div>
-            {data.cout && (<div className={"rounded-tr-lg rounded-bl-lg  bottom-0 left-0 " + div_numb}><span className="text-tiny align-top ">Coût</span><div className={CSS_numb}>{data.cout}{data.prod > 1 ? "*".repeat(data.prod) : ""}</div></div>)}
-            {data.move && (<div className={"rounded-t-lg  bottom-0 left-11.25 " + div_numb}><span className="text-tiny align-top ">Mouvement</span><div className={CSS_numb}>{data.move}</div></div>)}
-            {data.combat && (<div className={"rounded-t-lg  bottom-0 left-22.5 " + div_numb}><span className="text-tiny align-top ">Attaque</span><div className={CSS_numb}>{data.combat}{data.combat_touche > 1 ? "*".repeat(data.combat_touche) : ""}</div></div>)}
-            {data.capacite && (<div className={"rounded-t-lg  bottom-0 left-33.75 " + div_numb}><span className="text-tiny align-top ">Capacité</span><div className={CSS_numb}>{data.capacite}</div></div>)}
-            {data.PV && (<div className={"rounded-tl-lg rounded-br-lg  bottom-0 left-45 " + div_numb}><span className="text-tiny align-top ">Résistance</span><div className={CSS_numb}>{data.PV}</div></div>)}
+            <div className={"h-24 text-[10px] " + componentText}><span dangerouslySetInnerHTML={{ __html: replaceDiese(data.habilite) }}></span></div>
+            {data.cout && (<div className={"rounded-tr-lg rounded-bl-xl  bottom-0 left-0 " + div_numb}><span className={CSS_label}>Coût</span><div className={CSS_numb}>{data.cout}{data.prod > 1 ? "*".repeat(data.prod) : ""}</div></div>)}
+            {data.move && (<div className={"rounded-t-lg  bottom-0 left-11.25 " + div_numb}><span className={CSS_label}>Mouvement</span><div className={CSS_numb}>{data.move}</div></div>)}
+            {data.combat && (<div className={"rounded-t-lg  bottom-0 left-22.5 " + div_numb}><span className={CSS_label}>Attaque</span><div className={CSS_numb}>{data.combat}{data.combat_touche > 1 ? "*"+data.combat_touche+" ": ""}</div></div>)}
+            {data.capacite && (<div className={"rounded-t-lg  bottom-0 left-33.75 " + div_numb}><span className={CSS_label}>Capacité</span><div className={CSS_numb}>{data.capacite}</div></div>)}
+            {data.PV && (<div className={"rounded-tl-lg rounded-br-xl  bottom-0 left-45 " + div_numb}><span className={CSS_label}>Résistance</span><div className={CSS_numb}>{data.PV}</div></div>)}
         </div>
     ) : (<></>)
 }

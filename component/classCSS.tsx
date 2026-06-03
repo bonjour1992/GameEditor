@@ -4,7 +4,7 @@ export const h2CSS= "text-xl"
 
 export const modalCSS ="fixed inset-0 bg-black/50 flex items-center justify-center  z-10"
 
-export const dialogCSS ="bg-white w-full max-w-lg rounded-lg shadow-xl p-2 focus:outline-none"
+export const dialogCSS ="bg-white  w-150 h-100 overflow-hidden border-4 border-mist-500 rounded-3xl shadow-xl p-2 focus:outline-none"
 
 export const w_A3pa = " w-398 "
 

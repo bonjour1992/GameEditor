@@ -41,12 +41,13 @@ export default function Home() {
       <NavHead jeu={jeu} />
       <Main titre={"Liste des " + imp.get(type)?.name + "s (" + (list.length || 0) + ")"} >
         <a className="print:hidden" href={"/" + jeu + "/" + type + "/new"}>Créer nouveau</a>
-        <div className="flex flex-wrap">
+        <div className="flex flex-wrap ">
 
           {
             list.map((e, k) => {
               return (<div key={k} className="p-2 ">
                 <div className="w-full">
+                  <p><a className="print:hidden" href={"./" + e["id"] } >{e.content?.name}</a></p>
                   <a className="print:hidden" href={"./" + e["id"] + "/edit"} >Edit</a>
                   <button onClick={(event) => {
                     let f = async () => {

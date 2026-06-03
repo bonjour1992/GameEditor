@@ -22,6 +22,10 @@ export async function getElement(jeu: string, type: string, id: Number): Promise
   return await fetchAPI(jeu+ "/" + type + "/" + id, 'GET')
 }
 
+export async function getSearch(jeu: string): Promise<any> {
+  return await fetchAPI(jeu, 'GET')
+}
+
 export async function deleteElement(jeu: string, type: string, id: Number): Promise<any> {
   return await fetchAPI(jeu+ "/" + type + "/" + id, 'DELETE')
 }

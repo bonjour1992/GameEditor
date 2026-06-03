@@ -29,8 +29,8 @@ function Display({ data, dep }: { data: Faction, dep: Map<string, Array<ElementJ
                 return (<div key={e} className="border-x-6 border-b-12  h-15 border-gray-400 text-center text-gray-400"> <span className="text-5xl">    {e}</span></div>)
             })}
         </div>
-        <h1 className="text-6xl mx-8 mt-4" style={{ color: data?.color }}><Image src={data?.logo || "/404.jpeg"} loading="eager" alt="Logo manquant" width="80" height="80" className="inline" />   <b>{data?.name}</b></h1>
-        <div className="w-42 h-159 float-left flex flex-col gap-2 p-2">
+        <h1 className={data.name.length>25?"text-5xl":"text-6xl"+" mx-8 mt-4"} style={{ color: data?.color }}><Image src={data?.logo || "/404.jpeg"} loading="eager" alt="Logo manquant" width="80" height="80" className="inline" />   <b>{data?.name}</b></h1>
+        <div className="w-42 h-159 float-left flex flex-col gap-1 p-1">
             {Array.from((new Faction).agents.keys()).map((i) => {
                 return  data?.agents && data.agentNum>i && data?.agents[i].id !== -1 && <SpecificDisplayerFromDep key={i} link={data.agents[i]} dep={dep} className=" flex-auto "/>
             })}

@@ -2,8 +2,8 @@ import { small } from "../classCSS"
 
 export const componentBorderColor=" border-gray-500 "
 export const componentCSS=" border-4 bg-indigo-950/60 rounded-2xl relative z-5 text-amber-50"+small+componentBorderColor
-export const componentName=" border-b-4  py-1 w-full pl-2 text-base font-bold leading-none "+componentBorderColor
-export const componentText=" text-xs leading-none pl-1 "
+export const componentName=" border-b-4  py-0.5 w-full px-1 text-base font-bold leading-none "+componentBorderColor
+export const componentText=" text-[10px] leading-none pl-1 "
 
 function useautocomplete()
 {

@@ -55,7 +55,7 @@ export default function DisplayElement() {
         <>
             <NavHead jeu={jeu} element={type} />
             <div className="flex">
-                <Main titre={type} >
+                <Main titre={imp.get(type)?.name||""} >
                     <SpecificDisplayer content={element.content} type={type} dep={dep} />
 
                 </Main>

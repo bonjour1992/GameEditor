@@ -6,24 +6,32 @@ import { ColorInput } from "../input/ColorInput";
 import { componentCSS, componentName, componentText } from "./ticss";
 import { replaceDiese } from "../inputUtils";
 import { nameAff } from "../Utils";
+import { EnumInput } from "../input/EnumInput";
 
 
-
+const typePromesse : { [char: string]: string } = {
+    alli: "Alliance",
+    pro: "Promesse",
+    mand:"Mandat"
+}
 
 
 class Classe extends ElementContent {
 
     usage: string = ""
+    type: string = "alli"
 }
 
-function Display({ data, dep,className}: { data: Classe, dep: Map<string, Array<ElementJeu>> ,className?: string}) {
+function Display({ data, dep, className }: { data: Classe, dep: Map<string, Array<ElementJeu>>, className?: string }) {
 
 
     return (
-        <div className={smallpo+"border-6 text-center border-blue-600 rounded-2xl relative z-5  bg-gray-200  "+className}>
-            <div className={"border-b-4 py-1  border-blue-600 w-full pl-2 text-lg  font-bold leading-none"}>
-                <span className="ml-1"> {nameAff(data?.name)}</span> </div>
-            <div className={" text-sm text-left leading-none pl-1 pb-1 "}> <span dangerouslySetInnerHTML={{ __html: replaceDiese(data?.usage) }}></span></div>
+        <div className={smallpo + "border-6 text-center border-pink-400 rounded-2xl relative z-5  bg-gray-200  " + className}>
+            <div className={"border-b-4 py-1  border-pink-400 w-full px-2 text-lg  font-bold leading-none"}>
+                <span className="">{nameAff(data?.name)}</span> </div>
+             <div className={"border-b-2   border-pink-400 w-full pl-2 text-sm  font-bold leading-none"}>
+                <span className="">{typePromesse[data.type as keyof Classe]}</span> </div>               
+            <div className={" text-xs text-left leading-none pl-1 pb-1 "}> <span dangerouslySetInnerHTML={{ __html: replaceDiese(data?.usage) }}></span></div>
 
 
         </div>)
@@ -35,6 +43,7 @@ function Form({ content, onChange, onSubmit, id, dep }: { content: any, onChange
         <>
             <form onSubmit={onSubmit}>
                 <TextInput onChange={onChange} name="name" value={content} />
+                <EnumInput onChange={onChange} name="type" value={content} enumClass={typePromesse} />
                 <EditorInput onChange={onChange} name="usage" value={content} />
 
                 <button className={buttonCSS} onClick={onSubmit}> Sauvegarder</button>
