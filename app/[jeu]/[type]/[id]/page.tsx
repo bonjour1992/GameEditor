@@ -60,7 +60,7 @@ export default function DisplayElement() {
 
                 </Main>
                 <SideBar >
-                    {/*TODO: handle delete and version*/}
+                    {/*TODO:  version*/}
                     <button disabled={false} onClick={b => window.location.assign("./" + id + "/edit")} className={buttonCSS}>Editer</button>
                     <button disabled={false} onClick={supprimer} className={buttonCSS}>Delete</button>
                     <button disabled={false} onClick={dupliquer} className={buttonCSS}>Dupliquer</button>

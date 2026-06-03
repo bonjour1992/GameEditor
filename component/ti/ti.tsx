@@ -13,6 +13,7 @@ import PromesseHandler from "@/component/ti/promesse"
 import FullFactionHandler from "@/component/ti/fullFaction"
 
 import ReactDOMServer from "react-dom/server";
+import { techCSS } from "./ticss";
 
 
 export const  turnNumber = 10
@@ -40,14 +41,14 @@ export const element = new Array <[string,any]>(
 
 const CSSPhase= " font-bold underline "
 const CSSCap= " font-bold  "
-const CSSAgent= " font-bold text-shadow-xs text-shadow-gray-200 "
-
+const CSSAgent= " font-bold text-shadow-xs text-shadow-black "
+const CSStech=" inline-block rounded-sm size-3 border-2 pl-0.25 " 
 export const strDiese = new Map<string,{code:string,rule:string}>([
 
 //agent
 
 ["amiral",{code:ReactDOMServer.renderToStaticMarkup(<span className={CSSAgent+"text-red-400 "}>Amiral</span>),rule:"Sont les agents qui permettent d'effectuer les actions militaires en particuliers les déplacements"}],
-["scien",{code:ReactDOMServer.renderToStaticMarkup(<span className={CSSAgent+"text-blue-800"}>Scientifique</span>),rule:"Sont les agents qui permettent de rechercher des technologies ou de faire de l'archéologie"}],
+["scien",{code:ReactDOMServer.renderToStaticMarkup(<span className={CSSAgent+"text-blue-400"}>Scientifique</span>),rule:"Sont les agents qui permettent de rechercher des technologies ou de faire de l'archéologie"}],
 ["log",{code:ReactDOMServer.renderToStaticMarkup(<span className={CSSAgent+"text-green-400"}>Logisticien</span>),rule:"Sont les agents qui permettent d'effectuer les actions de production et construction"}],
 ["diplo",{code:ReactDOMServer.renderToStaticMarkup(<span className={CSSAgent+"text-pink-400"}>Diplomate</span>),rule:"Sont les agents qui permettent d'effectuer les actions de production et construction"}],
 ["neg",{code:ReactDOMServer.renderToStaticMarkup(<span className={CSSAgent+"text-amber-200"}>Negociant</span>),rule:"Sont les agents qui permettent d'effectuer les actions de production et construction"}],
@@ -94,6 +95,7 @@ export const strDiese = new Map<string,{code:string,rule:string}>([
 ["fpre",{code:ReactDOMServer.renderToStaticMarkup(<span className={CSSCap}>Frappe en premier</span>),rule:"Phase de déplacement de tout type de vaisseau"}],
 ["indes",{code:ReactDOMServer.renderToStaticMarkup(<span className={CSSCap}>Indestructible</span>),rule:"Cette unité n'est pas détruite si elle est réduite a 0 PV mais désactivé jusqu'a réparation"}],
 ["comp",{code:ReactDOMServer.renderToStaticMarkup(<span className={CSSCap}>Comptoir commercial</span>),rule:"Capacité de combat avec une portée de base de 0-1"}],
+["prec",{code:ReactDOMServer.renderToStaticMarkup(<span className={CSSCap}>Précis</span>),rule:"Capacité de combat avec une portée de base de 0-1"}],
 
 
 //ressource
@@ -112,6 +114,10 @@ export const strDiese = new Map<string,{code:string,rule:string}>([
 ["pleg",{code:ReactDOMServer.renderToStaticMarkup(<span className="font-bold text-amber-300 ">Planéte légendaire</span>),rule:"Phase de déplacement de tout type de vaisseau"}],
 ["con",{code:ReactDOMServer.renderToStaticMarkup(<span className="font-bold">Contrôle</span>),rule:"Phase de déplacement de tout type de vaisseau"}],
 ["tva",{code:ReactDOMServer.renderToStaticMarkup(<span className="">Trou de verre alpha</span>),rule:"Phase de déplacement de tout type de vaisseau"}],
+["reso",{code:ReactDOMServer.renderToStaticMarkup(<span className={techCSS.get("soc")+CSStech }> </span>),rule:"Phase de déplacement de tout type de vaisseau"}],
+["remil",{code:ReactDOMServer.renderToStaticMarkup(<span className={techCSS.get("mil")+CSStech}> </span>),rule:"Phase de déplacement de tout type de vaisseau"}],
+["respa",{code:ReactDOMServer.renderToStaticMarkup(<span className={techCSS.get("spa")+CSStech}> </span>),rule:"Phase de déplacement de tout type de vaisseau"}],
+["regen",{code:ReactDOMServer.renderToStaticMarkup(<span className={techCSS.get("gen")+CSStech}> </span>),rule:"Phase de déplacement de tout type de vaisseau"}],
 
 
 ])
