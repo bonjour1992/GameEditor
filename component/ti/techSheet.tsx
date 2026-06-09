@@ -33,7 +33,7 @@ function Display({ data, dep }: { data: TechSheet, dep: Map<string, Array<Elemen
 
             <h1 className={"text-6xl mx-8 mt-4 w-160" + (techTextCSS.get(data.techType) || " vide ")} ><Image src={data?.logo || "/404.jpeg"} loading="eager" alt="Logo manquant" width="80" height="80" className="inline" />   <b>{nameAff(data?.name)}</b></h1>
         </div>
-        <div className="grid grid-cols-4 w-240 gap-2 overflow auto float-left">
+        <div className="grid grid-cols-4 w-240 p-1 gap-2 overflow auto float-left">
             {Array.from(new Array(16).keys()).map((i) => {
                 return (<div key={i} className={" h-36 w-58"}>{data?.techs && data?.techs[i].id !== -1 && <SpecificDisplayerFromDep link={data.techs[i]} dep={dep} context={{ unlocked: data.unlocked[i] }} />}</div>)
             })}

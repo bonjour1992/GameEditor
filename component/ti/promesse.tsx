@@ -17,7 +17,6 @@ const typePromesse : { [char: string]: string } = {
 
 
 class Classe extends ElementContent {
-
     usage: string = ""
     type: string = "alli"
 }
@@ -29,7 +28,7 @@ function Display({ data, dep, className }: { data: Classe, dep: Map<string, Arra
         <div className={smallpo + "border-6 text-center border-pink-400 rounded-2xl relative z-5  bg-gray-200  " + className}>
             <div className={"border-b-4 py-1  border-pink-400 w-full px-2 text-lg  font-bold leading-none"}>
                 <span className="">{nameAff(data?.name)}</span> </div>
-             <div className={"border-b-2   border-pink-400 w-full pl-2 text-sm  font-bold leading-none"}>
+             <div className={"border-b-2   border-pink-400 w-full px-1 text-sm  font-bold leading-none"}>
                 <span className="">{typePromesse[data.type as keyof Classe]}</span> </div>               
             <div className={" text-xs text-left leading-none pl-1 pb-1 "}> <span dangerouslySetInnerHTML={{ __html: replaceDiese(data?.usage) }}></span></div>
 
@@ -53,4 +52,4 @@ function Form({ content, onChange, onSubmit, id, dep }: { content: any, onChange
 }
 
 
-export default { name: "Promesse", classe: Classe, form: Form, display: Display, dep: Array<string>() }
+export default { name: "Promesse", classe: Classe, form: Form, display: Display, dep: Array<string>() ,print:"grid-cols-6"}

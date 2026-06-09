@@ -4,13 +4,13 @@ import StarterKit from "@tiptap/starter-kit";
 import { ReactNode, useEffect } from "react";
 import { Label } from "../inputUtils";
 
-export function EditorInput({className,index, onChange , name = "name", value, label = true }:
+export function EditorInput({className,index, onChange , name = "name", value, label }:
     {
         className?:string
         index?:number
         onChange:  ( name: string, value: string,index?:number) => { },
         name: string,
-        label?: boolean,
+        label?: string,
         value: any
     }): ReactNode {
 const val= index !== undefined ? value[name][index] : value[name]
@@ -19,7 +19,7 @@ const val= index !== undefined ? value[name][index] : value[name]
         extensions: extensions,
         editorProps: {
             attributes: {
-                class: " bg-gray-100 prose prose-sm m-1 focus:outline-none",
+                class: " bg-gray-100 prose prose-sm m-1 focus:outline-none "+className,
             },
         },
         content: val || "loading",
@@ -52,7 +52,7 @@ const val= index !== undefined ? value[name][index] : value[name]
 
     return (
         <div className="border-2 rounded-lg">
-            {label && (<Label name={name} />)}
+            {label && (<Label name={label} />)}
             <EditorContext.Provider value={{ editor }} >
                 <div className="control-group overflow-hidden antialiased  ">
                     <div className="button-group px-3 py-1 flex items-center gap-0.5">

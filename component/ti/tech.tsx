@@ -61,4 +61,4 @@ function Form({ content, onChange, onSubmit, id, dep }: { content: any, onChange
 }
 
 
-export default { name: "Technologie", classe: Tech, form: Form, display: Display, dep: Array<string>() }
+export default { name: "Technologie", classe: Tech, form: Form, display: Display, dep: Array<string>(),print:"grid-cols-3" }

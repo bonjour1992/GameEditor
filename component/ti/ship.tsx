@@ -119,7 +119,7 @@ function Form({ content, onChange, onSubmit, id }: { content: any, onChange: any
     )
 }
 
-export default { name: "Vaisseau", classe: Ship, form: Form, display: Display, dep: Array<string>() }
+export default { name: "Vaisseau", classe: Ship, form: Form, display: Display, dep: Array<string>(),print:"grid-cols-3"  }
 
 
 

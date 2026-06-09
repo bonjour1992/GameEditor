@@ -41,6 +41,7 @@ export default function Home() {
       <NavHead jeu={jeu} />
       <Main titre={"Liste des " + imp.get(type)?.name + "s (" + (list.length || 0) + ")"} >
         <a className="print:hidden" href={"/" + jeu + "/" + type + "/new"}>Créer nouveau</a>
+        <a className="print:hidden" href={"/" + jeu + "/" + type + "/print"}>Page impression</a>
         <div className="flex flex-wrap ">
 
           {

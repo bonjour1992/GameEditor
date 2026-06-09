@@ -61,7 +61,7 @@ export default { name: "Planet", classe: Classe, form: Form, display: Display, d
 export function PlanetPict({ data,dep }: { data: Classe ,dep:Map<string, Array<ElementJeu>>}) {
     return (<div className=" text-white h-32.5 w-43 flex items-center justify-center">
         <Image src={data.img || "/404.jpeg"} alt="data.img" width="230" height="230" className="px-6 pt-2 my-auto" />
-        <div className={"text-center absolute top-0 z-10 " + (data.name.length > 13 || (planetType && data.name.length > 13) ? " text-lg " : " text-xl") + " font-bold w-full text-shadow-lg " + (data.legendary ?   "text-amber-300 " : data.type==="sat"? " text-gray-400 ":"")}>
+        <div className={"text-center absolute top-0 z-10 text-shadow-black text-shadow-base" + (data.name.length > 13 || (planetType && data.name.length > 13) ? " text-lg " : " text-xl") + " font-bold w-full text-shadow-lg " + (data.legendary ?   "text-amber-300 " : data.type==="sat"? " text-gray-400 ":"")}>
             {data.planetType ? <Image className="inline" src={planeteIcon.get(data.planetType) || "/404.jpeg"} alt={data.planetType} width={25} height={25} /> : ""}
             {data.homePlanet && data.homePlanet.id!==-1?<Image className="inline" src={getDep(dep,data.homePlanet)?.content?.logo|| "/404.jpeg"} alt={getDep(dep,data.homePlanet)?.content?.logo|| "/404.jpeg"} width={30} height={30}/>:""}
             {nameAff(data.name)}
@@ -86,10 +86,10 @@ function Display({ data, dep,className }: { data: Classe, dep: Map<string, Array
         <div className={"h-32.5 mx-1 mb-1 p-1 rounded-xl bg-black/70 relative " + componentText}><span dangerouslySetInnerHTML={{ __html: replaceDiese(data.habilite) }}></span>
             {data.nativeUnit ? <>
                 <div className="absolute w-full border-2 rounded-t-lg left-0 font-bold  border-white top-17.5 px-1">{data.unitName}</div>
-                <div className="absolute w-full border-x-2  h-7.5 left-0 border-white top-21 px-1 pt-0.5"><span dangerouslySetInnerHTML={{ __html: replaceDiese(data.unitEffect) }}></span></div>
-                <div className="absolute w-8 border-2 h-4 rounded-bl-lg left-0 font-bold text-xs border-white top-28.5 pb-0.5 ">#: {data.unitQuantity}</div>
-                <div className="absolute w-22.5 border-y-2 h-4 text-xs left-8 font-bold  border-white top-28.5 pb-0.5 ">{data.unitCombat ? "Combat:" + data.unitCombat + "*".repeat(data.unitCombatTouche) : ""}</div>
-                <div className="absolute w-10 border-2 h-4 rounded-br-lg left-30.5 font-bold text-xs border-white top-28.5 pb-0.5 ">PR: {data.unitPV}</div>
+                <div className="absolute w-full border-x-2  h-6.5 left-0 border-white top-21 px-1 pt-0.5"><span dangerouslySetInnerHTML={{ __html: replaceDiese(data.unitEffect) }}></span></div>
+                <div className="absolute w-8 border-2 h-5 rounded-bl-lg left-0 font-bold text-xs border-white top-27.5 pb-0.5 ">#: {data.unitQuantity}</div>
+                <div className="absolute w-22.5 border-y-2 h-5 text-xs left-8 font-bold  border-white top-27.5 pb-0.5 ">{data.unitCombat ? "Combat:" + data.unitCombat + "*".repeat(data.unitCombatTouche) : ""}</div>
+                <div className="absolute w-10 border-2 h-5 rounded-br-lg left-30.5 font-bold text-xs border-white top-27.5 pb-0.5 ">PR: {data.unitPV}</div>
             </> : ""}
         </div>
     </div>)

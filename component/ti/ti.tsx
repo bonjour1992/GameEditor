@@ -11,6 +11,9 @@ import AgendaHandler from "@/component/ti/agenda"
 import ReliqueHandler from "@/component/ti/relique"
 import PromesseHandler from "@/component/ti/promesse"
 import FullFactionHandler from "@/component/ti/fullFaction"
+import MilitaireHandler from "@/component/ti/militaire"
+import DerouleHandler from "@/component/ti/deroule"
+import PhaseHandler from "@/component/ti/phase"
 
 import ReactDOMServer from "react-dom/server";
 import { techCSS } from "./ticss";
@@ -36,7 +39,9 @@ export const element = new Array <[string,any]>(
     ["relique",ReliqueHandler],
     ["Promesse",PromesseHandler],
     ["fullfaction",FullFactionHandler],
-
+    ["militaire",MilitaireHandler],
+    ["deroule",DerouleHandler],
+    ["phase",PhaseHandler],
 )
 
 const CSSPhase= " font-bold underline "
@@ -110,10 +115,16 @@ export const strDiese = new Map<string,{code:string,rule:string}>([
 ["fav",{code:ReactDOMServer.renderToStaticMarkup(<span className="font-bold">faveur</span>),rule:"Capacité de combat avec une portée de base de 0-1"}],
 
 //autres
+["sauv",{code:ReactDOMServer.renderToStaticMarkup(<span className="font-bold">Planéte sauvage</span>),rule:"Phase de déplacement de tout type de vaisseau"}],
+["cult",{code:ReactDOMServer.renderToStaticMarkup(<span className="font-bold">Planéte culturelle</span>),rule:"Phase de déplacement de tout type de vaisseau"}],
 
 ["pleg",{code:ReactDOMServer.renderToStaticMarkup(<span className="font-bold text-amber-300 ">Planéte légendaire</span>),rule:"Phase de déplacement de tout type de vaisseau"}],
 ["con",{code:ReactDOMServer.renderToStaticMarkup(<span className="font-bold">Contrôle</span>),rule:"Phase de déplacement de tout type de vaisseau"}],
 ["tva",{code:ReactDOMServer.renderToStaticMarkup(<span className="">Trou de verre alpha</span>),rule:"Phase de déplacement de tout type de vaisseau"}],
+["tvb",{code:ReactDOMServer.renderToStaticMarkup(<span className="">Trou de verre beta</span>),rule:"Phase de déplacement de tout type de vaisseau"}],
+["tvg",{code:ReactDOMServer.renderToStaticMarkup(<span className="">Trou de verre gamma</span>),rule:"Phase de déplacement de tout type de vaisseau"}],
+
+["rech",{code:ReactDOMServer.renderToStaticMarkup(<span className={techCSS.get("vide")+CSStech }> </span>),rule:"Phase de déplacement de tout type de vaisseau"}],
 ["reso",{code:ReactDOMServer.renderToStaticMarkup(<span className={techCSS.get("soc")+CSStech }> </span>),rule:"Phase de déplacement de tout type de vaisseau"}],
 ["remil",{code:ReactDOMServer.renderToStaticMarkup(<span className={techCSS.get("mil")+CSStech}> </span>),rule:"Phase de déplacement de tout type de vaisseau"}],
 ["respa",{code:ReactDOMServer.renderToStaticMarkup(<span className={techCSS.get("spa")+CSStech}> </span>),rule:"Phase de déplacement de tout type de vaisseau"}],

@@ -10,7 +10,7 @@ export const w_A3pa = " w-398 "
 
 export const h_A3pa =" h-281 "
 
-export const w_A4pa = " w-281 "
+export const w_A4pa = " w-281.25 "
 
 export const h_A4pa =" h-198.5 "
 

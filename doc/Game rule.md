@@ -1,14 +1,13 @@
 - Ravitaillement
 - Recrutement
 - Deplacement
-- science
 - diplomatie
 - Canon spatial
 - Combat spatial
 - bombardement
 - debarquement
 - combat terrestre
-- retraite
+- science
 - Production
 - Construction
 - Revendication
