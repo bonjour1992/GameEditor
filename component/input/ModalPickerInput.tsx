@@ -37,7 +37,7 @@ console.log(dep)
     return (<div className={className}>
         {label && (<Label name={label} />)}
         <button onClick={(e) => { e.preventDefault(); setSelected(val); document.getElementById("modal" + name + index)?.classList.remove("hidden"); }}
-            className={buttonCSS}> {getDep(dep, val).content.name || "Aucun"} </button>
+            className={buttonCSS}> {getDep(dep, val)?.content?.name || "Aucun"} </button>
 
         <div id={"modal" + name + index} className={modalCSS + " hidden"}>
             <div id="dialog"

@@ -10,6 +10,7 @@ import { componentCSS, componentName, componentText, techCSS } from "./ticss";
 import { EditorInput } from "../input/EditorInput";
 import { replaceDiese } from "../inputUtils";
 import { nameAff } from "../Utils";
+import { BooleanInput } from "../input/BooleanInput";
 
 
 
@@ -19,18 +20,19 @@ class Tech extends ElementContent {
     tier = 3;
     cout = 5;
     effet = ""
+    special = false
 }
 
 function Display({ data, dep,context={unlocked:false} }: { data: Tech, dep: Map<string, Array<ElementJeu>> ,context:{unlocked:boolean}}) {
     let turn = Array.from(Array(turnNumber)).map((e, i) => i + 1)
 const CSScube=" size-3.5 border-2 text-sm/10 font-bold leading-1 pl-0.25 p-0.5 text-black"
 
-    return (<div className={ "border-4 bg-indigo-950/60 rounded-2xl relative z-5 text-amber-50  border-gray-500  w-58 h-36"}>
+    return (<div className={ "border-4 bg-indigo-950/60 rounded-2xl relative z-5 text-amber-50   w-58 h-36  border-gray-500 "}>
         <div className={componentName}>
             {Array.from(Array((data?.tier || 1) - 1).keys()).map(e => {
                 return (<div key={e} className={" mt-0.75 float-left size-3.5 border-2 rounded-md" + techCSS.get(data.techType)}></div>)
             })}
-            <span className="ml-0.25 text-sm"> {nameAff(data?.name)}</span> </div>
+            <span className={"ml-0.25 text-sm "+(data.special?" text-orange-300":"")}> {nameAff(data?.name)}</span> </div>
         <div className={"h-24 " + componentText}> <span dangerouslySetInnerHTML={{ __html: replaceDiese(data?.effet) }}></span></div>
         <div className="grid grid-cols-16 w-56 absolute bottom-0 ">
             <div className={CSScube+" rounded-bl-xl" + techCSS.get(data?.techType)}>{context.unlocked?"x":""}</div>
@@ -53,7 +55,7 @@ function Form({ content, onChange, onSubmit, id, dep }: { content: any, onChange
                 <NumberInput onChange={onChange} name="tier" value={content} min={1} max={5} />
                 <NumberInput onChange={onChange} name="cout" value={content} min={1} max={16} />
                 <EditorInput onChange={onChange} name="effet" value={content} />
-
+<BooleanInput onChange={onChange} name={"special"} value={content} label="Technologie spéciale?"/>
                 <button className={buttonCSS} onClick={onSubmit}> Sauvegarder</button>
             </form>
         </>

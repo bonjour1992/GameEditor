@@ -8,9 +8,10 @@ import { EnumInput } from "../input/EnumInput";
 import { TextInput } from "../input/TextInput";
 import { ElementContent } from "@/lib/datatype";
 import { buttonCSS } from '../classCSS';
-import { componentBorderColor, componentCSS, componentName, componentText } from './ticss';
+import { componentBorderColor, componentCSS, componentName, componentText, techCSS } from './ticss';
 import { EditorInput } from '../input/EditorInput';
 import { nameAff } from '../Utils';
+import { techType } from './ti';
 
 
 
@@ -62,7 +63,8 @@ class Ship extends ElementContent {
     capacite?: number
     PV: number = 1
     mot_cle: string[] = []
-
+    techType = "spa";
+    tier = 1;
 }
 
 
@@ -72,17 +74,21 @@ function Display({ data }: { data: Ship }) {
 
     const CSS_numb = "text-xl leading-0  w-11 text-center font-extrabold absolute bottom-2.5 "
     const div_numb = "border-2 h-8 w-11.25 text-center absolute " + componentBorderColor
-    const CSS_label ="text-[6px] align-top pt-1 pl-0.5"
+    const CSS_label = "text-[6px] align-top pt-1 pl-0.5"
     return data !== undefined ? (
         <div className={"border-4 bg-indigo-950/60 rounded-2xl relative z-5 text-amber-50 border-gray-500 w-58 h-37"}>
-            <div className={componentName}>{nameAff(data?.name)}</div>
+            <div className={componentName}>
+                           {Array.from(Array((data?.tier || 1) - 1).keys()).map(e => {
+                                return (<div key={e} className={" mt-0.25 float-left size-3.5 border-2 rounded-md" + techCSS.get(data.techType)}></div>)
+                            })}
+               <span className={"ml-0.25"}> {nameAff(data?.name)} </span></div>
             <div className={"pl-1 py-0.25 text-[10px] leading-none w-full border-b-2 font-bold" + componentBorderColor}>{data.mot_cle?.map((e, k, { length }) => {
                 return (<span key={e} className={"" + (tagColor[e] === undefined ? "" : (tagColor[e]))}>{tag[e] + (k === length - 1 ? "" : ", ")}</span>)
             })}</div>
             <div className={"h-24 text-[10px] " + componentText}><span dangerouslySetInnerHTML={{ __html: replaceDiese(data.habilite) }}></span></div>
             {data.cout && (<div className={"rounded-tr-lg rounded-bl-xl  bottom-0 left-0 " + div_numb}><span className={CSS_label}>Coût</span><div className={CSS_numb}>{data.cout}{data.prod > 1 ? "*".repeat(data.prod) : ""}</div></div>)}
             {data.move && (<div className={"rounded-t-lg  bottom-0 left-11.25 " + div_numb}><span className={CSS_label}>Mouvement</span><div className={CSS_numb}>{data.move}</div></div>)}
-            {data.combat && (<div className={"rounded-t-lg  bottom-0 left-22.5 " + div_numb}><span className={CSS_label}>Attaque</span><div className={CSS_numb}>{data.combat}{data.combat_touche > 1 ? "*"+data.combat_touche+" ": ""}</div></div>)}
+            {data.combat && (<div className={"rounded-t-lg  bottom-0 left-22.5 " + div_numb}><span className={CSS_label}>Attaque</span><div className={CSS_numb}>{data.combat}{data.combat_touche > 1 ? "*" + data.combat_touche + " " : ""}</div></div>)}
             {data.capacite && (<div className={"rounded-t-lg  bottom-0 left-33.75 " + div_numb}><span className={CSS_label}>Capacité</span><div className={CSS_numb}>{data.capacite}</div></div>)}
             {data.PV && (<div className={"rounded-tl-lg rounded-br-xl  bottom-0 left-45 " + div_numb}><span className={CSS_label}>Résistance</span><div className={CSS_numb}>{data.PV}</div></div>)}
         </div>
@@ -98,7 +104,8 @@ function Form({ content, onChange, onSubmit, id }: { content: any, onChange: any
             <form onSubmit={onSubmit}>
                 <TextInput onChange={onChange} name="name" value={content} />
                 <EnumInput onChange={onChange} name="type" value={content} enumClass={shipClasse} />
-
+                <EnumInput onChange={onChange} name="techType" value={content} enumClass={techType} />
+                <NumberInput onChange={onChange} name="tier" value={content} min={1} max={5} />
                 <br />
                 <TagInput onChange={onChange} name="mot_cle" value={content} tagClass={tag} />
                 <br />
@@ -119,7 +126,7 @@ function Form({ content, onChange, onSubmit, id }: { content: any, onChange: any
     )
 }
 
-export default { name: "Vaisseau", classe: Ship, form: Form, display: Display, dep: Array<string>(),print:"grid-cols-3"  }
+export default { name: "Unité", classe: Ship, form: Form, display: Display, dep: Array<string>(), print: "grid-cols-3" }
 
 
 

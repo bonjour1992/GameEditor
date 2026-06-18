@@ -21,7 +21,7 @@ class Faction extends ElementContent {
 }
 
 function Display({ data, dep }: { data: Faction, dep: Map<string, Array<ElementJeu>> }) {
-    let turn = Array.from(Array(turnNumber)).map((e, i) => i + 1)
+    let turn = Array.from(Array(turnNumber-1)).map((e, i) => i + 2)
 
     return (<div className={"bg-[url(/ti/bg%20star.jpg)] overflow-hidden" + A4pa}>
         <div className={"grid grid-cols-10 " + w_A4pa}>
@@ -47,6 +47,12 @@ function Display({ data, dep }: { data: Faction, dep: Map<string, Array<ElementJ
         </div>
     </div>)
 }
+
+export function FactionName ({ data, dep ,className,sizeLogo}: { data: Faction, dep: Map<string, Array<ElementJeu>>,className:string,sizeLogo:number})
+{
+            return (<h1 className={className} style={{ color: data?.color }}><Image src={data?.logo || "/404.jpeg"} loading="eager" alt="Logo manquant" width={sizeLogo} height={sizeLogo} className="inline" />   <b>{data?.name}</b></h1>)
+}
+
 
 function Form({ content, onChange, onSubmit, id, dep }: { content: any, onChange: any, onSubmit: any, id?: number, dep: Map<string, Array<ElementJeu>> }) {
 

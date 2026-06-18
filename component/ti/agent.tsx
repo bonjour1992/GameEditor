@@ -22,7 +22,7 @@ function Display({ data, dep,className}: { data: Classe, dep: Map<string, Array<
 
     return (
         <div className={"border-4 rounded-xl relative z-5  min-h-18  w-38  bg-indigo-950/60 "+className} style={{ color: data.color, borderColor: data.color }}>
-            <div className={"border-b-2 text-center w-full text-xl font-bold leading-none"}>
+            <div className={"border-b-2 text-center w-full text-base font-bold leading-none"}>
                 <span className=" "> {nameAff(data?.name)}</span> </div>
             <div className={" text-[9px] leading-none pl-1 pb-1 "}> <span dangerouslySetInnerHTML={{ __html: replaceDiese(data?.usage) }}></span></div>
 

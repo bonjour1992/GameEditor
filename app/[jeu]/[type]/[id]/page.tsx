@@ -44,7 +44,7 @@ export default function DisplayElement() {
     function supprimer(e: any) {
         let f = async () => {
             let res = await deleteElement(jeu, type,parseInt(id))
-            window.location.assign("/" + jeu + "/" + type + "/" + res.id + "/edit")
+            window.location.assign("/" + jeu + "/" + type + "/list" )
         }
         f()
         e.preventDefault()

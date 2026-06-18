@@ -9,10 +9,11 @@ import { ImagePicker } from "../input/ImagePicker";
 import { ColorInput } from "../input/ColorInput";
 import { TableInput } from "../input/TableInput";
 import { componentName, componentText, techCSS, techTextCSS } from "./ticss";
-import { replaceDiese } from "../inputUtils";
+import { getDep, replaceDiese } from "../inputUtils";
 import { EnumInput } from "../input/EnumInput";
 import { BooleanInput } from "../input/BooleanInput";
 import { nameAff } from "../Utils";
+import { FactionName } from "./faction";
 
 
 class TechSheet extends ElementContent {
@@ -20,7 +21,14 @@ class TechSheet extends ElementContent {
     techType = "spa";
     techs: Array<Link> = new Array(18).fill(new Link("ship"))
     unlocked: Array<boolean> = new Array(18).fill(false)
+    faction: Link =new Link("faction")
     connaissance: string = "<p>#pscience<br />Obtenir une tech de ce type vous fait gagner 2 de recherches en connaissance.<br /><br />La connaissance est nécessaire pour rechercher les technologies qui ont un prérequis.<br /><br /></p><p>#decomp:<br />Chaque niveau de connaissance rapporte un #point</p><p>Si aucune faction n'a plus de connaissance que vous gagnez 2 #point</p>"
+}
+
+function techPoint(data:TechSheet)
+{
+
+    return data.unlocked.reduce((res,e)=>e?res+2:res,0)
 }
 
 function Display({ data, dep }: { data: TechSheet, dep: Map<string, Array<ElementJeu>> }) {
@@ -32,6 +40,7 @@ function Display({ data, dep }: { data: TechSheet, dep: Map<string, Array<Elemen
             <div className={" h-36 w-58 float-right"}>{data?.techs && data?.techs[17].id !== -1 && <SpecificDisplayerFromDep link={data.techs[17]} dep={dep} context={{ unlocked: data.unlocked[17] }} />}</div>
 
             <h1 className={"text-6xl mx-8 mt-4 w-160" + (techTextCSS.get(data.techType) || " vide ")} ><Image src={data?.logo || "/404.jpeg"} loading="eager" alt="Logo manquant" width="80" height="80" className="inline" />   <b>{nameAff(data?.name)}</b></h1>
+           {data.faction&& data.faction.id !== -1 && <FactionName data={getDep(dep, data.faction)?.content} dep={dep} className="text-3xl ml-30 " sizeLogo={50}/>}
         </div>
         <div className="grid grid-cols-4 w-240 p-1 gap-2 overflow auto float-left">
             {Array.from(new Array(16).keys()).map((i) => {
@@ -39,20 +48,20 @@ function Display({ data, dep }: { data: TechSheet, dep: Map<string, Array<Elemen
             })}
         </div>
 
-        <div className={"border-4 bg-indigo-950/60 rounded-2xl relative z-5 text-amber-50  border-gray-500  w-36.75 h-150 ml-2.5 float-left"}>
+        <div className={"border-4 bg-indigo-950/60 rounded-2xl relative z-5 text-amber-50  border-gray-500  w-37.5 h-150  float-left"}>
             <div className={componentName}>
 
                 <span className="ml-1"> Connaissance</span> </div>
             <div className={"h-71.5 " + componentText}> <span dangerouslySetInnerHTML={{ __html: replaceDiese(data?.connaissance) }}></span></div>
-            <div className="grid grid-cols-10 w-35 absolute bottom-0">
-                {Array.from(Array(190).keys()).map((e, i) => {
-                    return (<div key={i} className={"size-3.5 border-2 " + techCSS.get(data?.techType)}></div>)
+            <div className="grid grid-cols-8 w-35 absolute bottom-0">
+                {Array.from(Array(112).keys()).map((e, i) => {
+                    return (<div key={i} className={"size-5 border-2 font-bold leading-3 pl-0.5 p-0.5 text-black" + techCSS.get(data?.techType)}>{i<techPoint(data)?<span>X</span>:""}</div>)
                 })}
-                <div className={"size-3.5 border-2 rounded-bl-2xl" + techCSS.get(data?.techType)}></div>
-                {Array.from(Array(8).keys()).map((e, i) => {
-                    return (<div key={i} className={"size-3.5 border-2 " + techCSS.get(data?.techType)}></div>)
+                <div className={"size-5 border-2 rounded-bl-xl" + techCSS.get(data?.techType)}></div>
+                {Array.from(Array(6).keys()).map((e, i) => {
+                    return (<div key={i} className={"size-5 border-2 " + techCSS.get(data?.techType)}></div>)
                 })}
-                <div className={"size-3.5 border-2 rounded-br-2xl " + techCSS.get(data?.techType)}></div>
+                <div className={"size-5  border-2 rounded-br-xl " + techCSS.get(data?.techType)}></div>
             </div>
 
         </div>
@@ -62,7 +71,7 @@ function Display({ data, dep }: { data: TechSheet, dep: Map<string, Array<Elemen
 
 function Form({ content, onChange, onSubmit, id, dep }: { content: any, onChange: any, onSubmit: any, id?: number, dep: Map<string, Array<ElementJeu>> }) {
 
-
+if(content.faction===undefined) content.faction=new Link("faction")
     return (
         <>
             <form onSubmit={onSubmit}>
@@ -70,7 +79,7 @@ function Form({ content, onChange, onSubmit, id, dep }: { content: any, onChange
                     <TextInput onChange={onChange} name="name" value={content} />
                     <ImagePicker onChange={onChange} name={"logo"} value={content} />
                     <EnumInput onChange={onChange} name="techType" value={content} enumClass={techType} />
-
+       <ModalPickerInput onChange={onChange} name={"faction"} value={content} type={["faction"]} dep={dep || []} />
                 </div>
 
                 <h2>Ship</h2>
@@ -82,6 +91,7 @@ function Form({ content, onChange, onSubmit, id, dep }: { content: any, onChange
                     })}
 
                 </div>
+         
 
                 <button className={buttonCSS} onClick={onSubmit}> Sauvegarder</button>
             </form>
@@ -92,4 +102,4 @@ function Form({ content, onChange, onSubmit, id, dep }: { content: any, onChange
 
 
 
-export default { name: "Feuille de technologie", classe: TechSheet, form: Form, display: Display, dep: Array<string>("tech"), print: "grid-cols-1" }
+export default { name: "Feuille de technologie", classe: TechSheet, form: Form, display: Display, dep: Array<string>("tech","faction"), print: "grid-cols-1" }
